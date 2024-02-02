@@ -1,19 +1,29 @@
- // Display current date in the header
- $("#currentDay").text(dayjs().format("dddd MM/DD/YY"));
+// Display current date in the header
+$("#currentDay").text(dayjs().format("dddd MM/DD/YY"));
 
- // GEt info frm 7 timer API
-// Fetch data from the provided APIs
-fetch("http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json")
-    .then(response => response.json())
-    .then(data => {
-        console.log(data); // Log the fetched data to the console for testing
-        
-        // Example: Displaying sunrise and sunset times
-        const sunriseTime = data.astronomy.astro[0].sunrise;
-        const sunsetTime = data.astronomy.astro[0].sunset;
-        
-        // Update the DOM with the fetched data
-        document.getElementById("sunriseTime").textContent = sunriseTime;
-        document.getElementById("sunsetTime").textContent = sunsetTime;
-    })
-    .catch(error => console.error('Error fetching data:', error));
+// Construct the API request URL for Meteomatics API
+const apiUrl = "https://api.meteomatics.com/2024-02-02T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
+
+// Function to fetch moon phase information from Meteomatics API
+const fetchMoonPhase = () => {
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch moon phase information');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const moonPhase = data.data[0].moon_phase.value;
+
+            // Display moon phase information
+            document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
+        })
+        .catch(error => {
+            console.error('Error fetching moon phase data:', error);
+            document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
+        });
+};
+
+// Call the fetchMoonPhase function when the page loads
+window.onload = fetchMoonPhase;
