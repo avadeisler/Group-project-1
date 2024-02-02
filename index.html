@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Witchy-weather</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Tonight's Spell Cast</h1>
+        <li><button type="button" id="getLocationBtn">Location</button></li>
+        <div id="location"></div>
+        <div id="printDateTime"></div>
+        <p id="currentDay" class="lead"></p>
+        <!-- Add an img tag to display the graphical API -->
+        <img id="forecastDiagram" src="" alt="Forecast Diagram">
+    </header>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+
+    <script>
+        $("#currentDay").text(dayjs().format("dddd MM/DD/YY")); // Display current date
+
+        // Function to get user's location
+        const getLocation = function () {
+            const x = document.getElementById("location");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    x.innerHTML = "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+                });
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        // Attach click event to the Location button
+        $("#getLocationBtn").on("click", getLocation);
+
+        // Set the src attribute of the img tag to the graphical API URL
+        document.getElementById("forecastDiagram").src = "http://www.7timer.info/bin/astro.php?lon=113.17&lat=23.09&ac=0&lang=en&unit=metric&output=internal&tzshift=0";
+    </script>
+</body>
+
+</html>
