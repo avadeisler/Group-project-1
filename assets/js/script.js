@@ -6,7 +6,7 @@ console.log(dateURL);
 
 // Construct the API request URL for Meteomatics API
 // const apiUrl = "https://api.meteomatics.com/" + dateURL + "T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
-const apiUrl = "http://api.meteomatics.com/2024-02-06T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
+const apiUrl = "https://api.meteomatics.com/2024-02-06T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
 
 // Function to fetch moon phase information from Meteomatics API
 const fetchMoonPhase = () => {
