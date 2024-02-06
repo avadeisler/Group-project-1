@@ -1,8 +1,12 @@
 // Display current date in the header
 $("#currentDay").text(dayjs().format("dddd MM/DD/YY"));
 
+let dateURL = dayjs().format('YYYY-MM-DD');
+console.log(dateURL);
+
 // Construct the API request URL for Meteomatics API
-const apiUrl = "https://api.meteomatics.com/2024-02-02T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
+// const apiUrl = "https://api.meteomatics.com/" + dateURL + "T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
+const apiUrl = "http://api.meteomatics.com/2024-02-06T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
 
 // Function to fetch moon phase information from Meteomatics API
 const fetchMoonPhase = () => {
@@ -18,6 +22,7 @@ const fetchMoonPhase = () => {
 
             // Display moon phase information
             document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
+            console.log(data);
         })
         .catch(error => {
             console.error('Error fetching moon phase data:', error);
