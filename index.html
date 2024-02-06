@@ -9,17 +9,80 @@
 </head>
 
 <body>
+    <!-- NEW IDEA -->
+    <div class="header">
+        <h1>Tonight's Spell Cast</h1>
+        <p>Witchy Weather App</p>
+    </div>
+
+    <div class="topnav">
+        <a href="#">Your Location</a> <!-- Show Location/Pick Location -->
+        <a href="#">Today's Date</a> <!-- Show Date -->
+        <a href="#">Current Time</a> <!-- Show Time -->
+    </div>
+
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card">
+                <h2>Show Current Moon Phase</h2>
+                <h5>Moon Rise:</h5>
+                <h5>Moon Set:</h5>
+                <!-- Show Moon Phase API -->
+                <!-- Moon cycle img -->
+                <p>Info about current moon phase</p>
+            </div>
+            <div class="card">
+                <h2>Show Current Astronomy Events</h2>
+                <!-- Show Astronomy Events API -->
+                <p>Info about astronomy event</p>
+            </div>
+        </div>
+
+        <div class="rightcolumn">
+            <div class="card">
+                <h2>Show Current Constellation Above You</h2>
+                <!-- List Names of Constellations Above You -->
+                <!-- No Images Needed, Don't Want To Overpack The Page -->
+            </div>
+            <div class="card">
+                <!-- Show Current Location on Map (API) -->
+            </div>
+            <div class="card">
+                <!-- Cat Image With Cat Fact API -->
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<!-- OLD IDEA -->
+<!-- <body>
+    <div class="box-area">
+        <header>
+            <div class="wrapper">
+                <div class="logo">
+                    <h1>Tonight's Spell Cast</h1>
+                </div>
+                <nav>
+                    <a href="#"></a> Show Location/Pick Location
+                    <a href="#"></a> Show Date
+                    <a href="#"></a> Show Time
+                </nav>
+            </div>
+        </header>
+    </div>
+
     <header>
         <h1>Tonight's Spell Cast</h1>
         <li><button type="button" id="getLocationBtn">Location</button></li>
         <div id="location"></div>
         <div id="printDateTime"></div>
         <p id="currentDay" class="lead"></p>
-        <!-- Add an img tag to display the graphical API -->
+        Add an img tag to display the graphical API
         <img id="forecastDiagram" src="" alt="Forecast Diagram">
-        <!-- Placeholder for moon phase information -->
+        Placeholder for moon phase information 
         <div id="moonPhase"></div>
-    </header>
+    </header> -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
