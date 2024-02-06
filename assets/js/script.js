@@ -1,5 +1,20 @@
-// Display current date in the header
-$("#currentDay").text(dayjs().format("dddd MM/DD/YY"));
+// JavaScript
+
+// Display current date in the header using Day.js
+document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY');
+
+// Display current time after "Current Time" text
+document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
+
+// Get current location
+navigator.geolocation.getCurrentPosition(position => {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const accuracy = position.coords.accuracy;
+    
+    // Display current location
+    document.getElementById('currentLocation').innerText = `Latitude ${latitude}, Longitude ${longitude}`;
+});
 
 // Define your Meteomatics API credentials
 const username = 'home_asenciomorales_carlos';

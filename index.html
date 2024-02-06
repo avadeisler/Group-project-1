@@ -5,111 +5,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Witchy-weather</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <!-- NEW IDEA -->
-    <div class="header">
-        <h1>Tonight's Spell Cast</h1>
-        <p>Witchy Weather App</p>
+<body class="bg-purple-900 text-yellow-500 flex flex-col h-screen justify-center items-center">
+    <!-- Example Tailwind CSS classes applied to body -->
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold">Tonight's Spell Cast</h1>
+        <p class="text-xl">Witchy Weather App</p>
     </div>
 
-    <div class="topnav">
-        <a href="#">Your Location</a> <!-- Show Location/Pick Location -->
-        <a href="#">Today's Date</a> <!-- Show Date -->
-        <a href="#">Current Time</a> <!-- Show Time -->
+    <!-- Top Navigation -->
+    <div class="topnav mb-8 flex justify-around">
+        <span id="currentLocation" class="text-lg"></span> <!-- Display current location here -->
+        <span class="text-lg mx-8"> </span> <!-- Add space -->
+        <span class="text-lg mx-2"> </span> <!-- Add space -->
+        <span id="currentDate" class="text-lg"> </span> <!-- Display current date here -->
+        <span class="text-lg mx-4"> </span> <!-- Add space -->
+        <span id="currentTime" class="text-lg"> </span> <!-- Display current time here -->
     </div>
 
-    <div class="row">
+    <!-- Main Content -->
+    <div class="grid grid-cols-2 gap-8">
+
+        <!-- Left Column -->
         <div class="leftcolumn">
-            <div class="card">
-                <h2>Show Current Moon Phase</h2>
+
+            <!-- Moon Phase -->
+            <div class="card mb-8">
+                <h2 class="text-2xl font-semibold">Show Current Moon Phase</h2>
                 <h5>Moon Rise:</h5>
                 <h5>Moon Set:</h5>
-                <!-- Show Moon Phase API -->
+                <!-- Moon Phase API -->
                 <!-- Moon cycle img -->
-                <p>Info about current moon phase</p>
+                <p class="text-base">Info about current moon phase</p>
             </div>
+
+            <!-- Astronomy Events -->
             <div class="card">
-                <h2>Show Current Astronomy Events</h2>
-                <!-- Show Astronomy Events API -->
-                <p>Info about astronomy event</p>
+                <h2 class="text-2xl font-semibold">Show Current Astronomy Events</h2>
+                <!-- Astronomy Events API -->
+                <p class="text-base">Info about astronomy event</p>
             </div>
+
         </div>
 
-        <div class="rightcolumn">
+        <!-- Right Column -->
+        <div class="rightcolumn flex justify-center items-center">
+
+            <!-- Constellation -->
             <div class="card">
-                <h2>Show Current Constellation Above You</h2>
+                <h2 class="text-2xl font-semibold">Show Current Constellation Above You</h2>
                 <!-- List Names of Constellations Above You -->
                 <!-- No Images Needed, Don't Want To Overpack The Page -->
             </div>
-            <div class="card">
-                <!-- Show Current Location on Map (API) -->
-            </div>
-            <div class="card">
-                <!-- Cat Image With Cat Fact API -->
-            </div>
+
         </div>
-    </div>
-</body>
+        <!-- Cat Image -->
+        <div class="flex justify-center items-center mt-8">
+            <img src="./assets/images/cat.png" alt="Cat Image" class="w-64 h-auto">
+        </div>
 
-
-<!-- OLD IDEA -->
-<!-- <body>
-    <div class="box-area">
-        <header>
-            <div class="wrapper">
-                <div class="logo">
-                    <h1>Tonight's Spell Cast</h1>
-                </div>
-                <nav>
-                    <a href="#"></a> Show Location/Pick Location
-                    <a href="#"></a> Show Date
-                    <a href="#"></a> Show Time
-                </nav>
-            </div>
-        </header>
     </div>
 
-    <header>
-        <h1>Tonight's Spell Cast</h1>
-        <li><button type="button" id="getLocationBtn">Location</button></li>
-        <div id="location"></div>
-        <div id="printDateTime"></div>
-        <p id="currentDay" class="lead"></p>
-        Add an img tag to display the graphical API
-        <img id="forecastDiagram" src="" alt="Forecast Diagram">
-        Placeholder for moon phase information 
-        <div id="moonPhase"></div>
-    </header> -->
-
+    <!-- JavaScript imports -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-
-    <script>
-        $("#currentDay").text(dayjs().format("dddd MM/DD/YY")); // Display current date
-
-        // Function to get user's location
-        const getLocation = function () {
-            const x = document.getElementById("location");
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    x.innerHTML = "Latitude: " + position.coords.latitude +
-                        "<br>Longitude: " + position.coords.longitude;
-                });
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        // Attach click event to the Location button
-        $("#getLocationBtn").on("click", getLocation);
-
-        // Set the src attribute of the img tag to the graphical API URL
-        document.getElementById("forecastDiagram").src = "http://www.7timer.info/bin/astro.php?lon=113.17&lat=23.09&ac=0&lang=en&unit=metric&output=internal&tzshift=0";
-    </script>
+    <script src="./assets/js/script.js"></script> <!-- Include your JavaScript file -->
 </body>
 
 </html>
