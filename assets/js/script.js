@@ -7,14 +7,17 @@ document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY
 document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 
 // Get current location
-navigator.geolocation.getCurrentPosition(position => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    const accuracy = position.coords.accuracy;
-    
-    // Display current location
-    document.getElementById('currentLocation').innerText = `Latitude ${latitude}, Longitude ${longitude}`;
-});
+fetch('https://ipapi.co/json/')
+    .then(response => response.json())
+    .then(data => {
+        const city = data.city;
+        const country = data.country_name;
+        document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+    })
+    .catch(error => {
+        console.error('Error fetching current location:', error);
+        document.getElementById('currentLocation').innerText = 'Error fetching current location';
+    });
 
 // Define your Meteomatics API credentials
 const username = 'home_asenciomorales_carlos';
