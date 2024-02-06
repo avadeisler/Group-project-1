@@ -1,3 +1,5 @@
+let corsKey ='temp_3b96f43bf425f922c76ba59cea93db0a';
+
 // Display current date in the header
 $("#currentDay").text(dayjs().format("dddd MM/DD/YY"));
 
@@ -6,11 +8,22 @@ console.log(dateURL);
 
 // Construct the API request URL for Meteomatics API
 // const apiUrl = "https://api.meteomatics.com/" + dateURL + "T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
-const apiUrl = "https://api.meteomatics.com/2024-02-06T00:00:00ZP15D:P1D/moon_phase:idx/50,10/json";
+const apiUrl = "https://proxy.cors.sh/https://api.meteomatics.com/2024-02-06T00:00:00ZP1D:P1D/moon_phase:idx/50,10/json";
+
+// fetch('https://proxy.cors.sh/https://acme.com', {
+//   headers: {
+//   'x-cors-api-key': 'temp_3b96f43bf425f922c76ba59cea93db0a'
+//   }
+// })
+
 
 // Function to fetch moon phase information from Meteomatics API
 const fetchMoonPhase = () => {
-    fetch(apiUrl)
+    fetch(apiUrl, {
+        headers: {
+            'x-cors-api-key': corsKey
+        }})
+
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch moon phase information');
