@@ -5,7 +5,7 @@ We were tasked with creating a functional and creative app using the skills we h
 
 Our group includes Noah Meister, Olivia Skillings, Carlos Asencio Morales and Ava Deisler.
 
-We decided to create an app called Witchy weather. This app combines several pieces of astronomical data such as the current phase of the moon, constellations above you based on your location, moon rise, moon set, as well as the chance of meteor showers and other space weather. With this information, any modern day witch or warlock will be able to ascertain the best time for spell casting! Click on the cute cat for a daily cat fact!
+We decided to create an app called Witchy Weather. This app combines several pieces of astronomical data such as the current phase of the moon, constellations above you based on your location, moon rise, moon set, as well as the chance of meteor showers and other space weather. With this information, any modern day witch or warlock will be able to ascertain the best time for spell casting! Click on the cute cat for a daily cat fact!
 
 There are some guidelines that were assigned to us by the bootcamp staff:
 
