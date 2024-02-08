@@ -1,5 +1,12 @@
 //Global Var List
 let catFact;
+let lat;
+let long;
+let today = dayjs().format('YYYY-MM-DD');
+let now = dayjs().format('HH:mm:ss')
+
+console.log(today);
+console.log(now);
 
 // Get current date using Day.js and format it
 const currentDate = dayjs().format('YYYY-MM-DD');
@@ -14,9 +21,16 @@ document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 fetch('https://ipapi.co/json/')
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         const city = data.city;
         const country = data.country_name;
+        lat = data.latitude;
+        console.log(lat);
+        long = data.longitude;
+        console.log(long);
         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+
+        fetchBodyPosition();
     })
     .catch(error => {
         console.error('Error fetching current location:', error);
@@ -33,6 +47,7 @@ const authString = btoa(`${applicationId}:${applicationSecret}`);
 // Define the API endpoint
 const apiUrl = 'https://api.astronomyapi.com/api/v2/studio/moon-phase';
 
+<<<<<<< HEAD
 // Function to fetch moon phase information from AstronomyAPI
 const fetchMoonPhase = () => {
     const observer = {
@@ -58,6 +73,10 @@ const fetchMoonPhase = () => {
 
     fetch(apiUrl, {
         method: "POST",
+=======
+const fetchBodyPosition = () => {
+    fetch(astroUrl+'/positions?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+today+'&time='+now+'&elevation=0', {
+>>>>>>> main
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Basic ${authString}`,
@@ -82,4 +101,27 @@ const fetchMoonPhase = () => {
     });
 };
 
+<<<<<<< HEAD
 window.onload = fetchMoonPhase;
+=======
+const catFactUrl = 'https://cat-fact.herokuapp.com/facts';
+
+const fetchCatFact = () => {
+    fetch(catFactUrl)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data)
+        catFact = data[0].text;
+        console.log(catFact);
+    })
+    .catch(error => {
+        console.error('Error fetching cat data:', error);
+    })
+}
+
+
+// window.onload = fetchMoonPhase;
+fetchCatFact();
+>>>>>>> main
