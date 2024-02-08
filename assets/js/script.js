@@ -35,6 +35,8 @@ fetch('https://ipapi.co/json/')
 
         fetchBodyPosition();
         fetchMoonEvent();
+        fetchStarChart();
+        fetchStarChart2();
     })
     .catch(error => {
         console.error('Error fetching current location:', error);
@@ -89,10 +91,10 @@ var astroSecret = '54b7eb10e73c339f0d395c7fc83d455cd8cbe47e082ffd663757a9033f11f
 
 
 const authString = btoa(astroId + ':' + astroSecret);
-const astroUrl = 'https://api.astronomyapi.com/api/v2/bodies';
+const astroUrl = 'https://api.astronomyapi.com/api/v2';
 
 const fetchBodyPosition = () => {
-    fetch(astroUrl+'/positions?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+today+'&time='+now+'&elevation=0', {
+    fetch(astroUrl+'/bodies/positions?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+today+'&time='+now+'&elevation=0', {
         headers: {
             'Authorization': 'Basic ' + authString
         }  
@@ -119,7 +121,7 @@ const fetchBodyPosition = () => {
 };
 
 const fetchMoonEvent = () => {
-    fetch(astroUrl+'/events/moon?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+oneYear+'&time='+now+'&elevation=0', {
+    fetch(astroUrl+'/bodies/events/moon?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+oneYear+'&time='+now+'&elevation=0', {
         headers: {
             'Authorization': 'Basic ' + authString
         }  
@@ -129,7 +131,7 @@ const fetchMoonEvent = () => {
         //     throw new Error('Failed to fetch moon phase information');
         // }
         // console.log(response);
-        return response.json();
+        return response();
     })
     .then(data => {
         // console.log("Hello");
@@ -138,6 +140,56 @@ const fetchMoonEvent = () => {
         
         // Display moon phase information
         // document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
+    })
+    .catch(error => {
+        console.error('Error fetching moon phase data:', error);
+        document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
+    });
+};
+
+const fetchStarChart = () => {
+    fetch(astroUrl+'/studio/star-chart?latitude='+lat+'&longitude='+long+'&date='+today+'&type=constellation', {
+        headers: {
+            'Authorization': 'Basic ' + authString
+        }  
+        body: {
+            "style": "inverted",
+            "observer": {
+                "latitude": lat,
+                "longitude": long,
+                "date": today
+            },
+            "view": {
+                "type": "constellation",
+                "parameters": {
+                    "constellation": "ori" // 3 letter constellation id
+                }
+            }
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error fetching moon phase data:', error);
+        document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
+    });
+};
+
+const fetchStarChart2 = () => {
+    fetch(astroUrl+'/studio/star-chart?latitude='+lat+'&longitude='+long+'&date='+today+'&type=constellation', {
+        headers: {
+            'Authorization': 'Basic ' + authString
+        }  
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
