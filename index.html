@@ -35,10 +35,7 @@
             <!-- Moon Phase -->
             <div class="card mb-8">
                 <h2 class="text-2xl font-semibold">Show Current Moon Phase</h2>
-                <h5>Moon Rise:</h5>
-                <h5>Moon Set:</h5>
-                <!-- Moon Phase API -->
-                <!-- Moon cycle img -->
+                <div id="moonPhase"></div> <!-- Display moon phase information here -->
                 <p class="text-base">Info about current moon phase</p>
             </div>
 
@@ -74,5 +71,85 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script> <!-- Include your JavaScript file -->
+    <script>
+        // Global Var List
+        let catFact;
+
+        // Fetch current date and time using Day.js
+        document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY');
+        document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
+
+        // Fetch current location using ipapi
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                const city = data.city;
+                const country = data.country_name;
+                document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+            })
+            .catch(error => {
+                console.error('Error fetching current location:', error);
+                document.getElementById('currentLocation').innerText = 'Error fetching current location';
+            });
+
+        // Define your AstronomyAPI credentials
+        const applicationId = '7f7ceb9c-e61c-46d8-902f-6339015ada71';
+        const applicationSecret = 'ef4a8a96cb60bf0545d5e39a4ea8654922a0fbe4a31265c5813aeb998698bee0b65c3eaba3c58797433ba220ec75514fd40f56a4cd9f43c6c90b51ded91472aef574fa589bf394b9ecf736929be28fa2bfb57c2b726a459e074643252b996ef792b76307afab559a9e048c8241eb0d64';
+
+        // Construct the authentication string
+        const authString = btoa(`${applicationId}:${applicationSecret}`);
+
+        // Define the API endpoint
+        const apiUrl = 'https://api.astronomyapi.com/api/v2/studio/moon-phase';
+
+        // Function to fetch moon phase information from AstronomyAPI
+        const fetchMoonPhase = () => {
+            const observer = {
+                latitude: 6.56774,
+                longitude: 79.88956,
+                date: "2020-11-01"
+            };
+
+            const data = JSON.stringify({
+                style: {
+                    moonStyle: "sketch",
+                    backgroundStyle: "stars",
+                    backgroundColor: "#000000",
+                    headingColor: "#ffffff",
+                    textColor: "#ffffff"
+                },
+                observer,
+                view: {
+                    type: "portrait-simple",
+                    orientation: "south-up"
+                }
+            });
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Basic ${authString}`
+                },
+                body: data
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch moon phase information');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const moonPhase = data.moonPhase; // Adjust this based on the actual response structure
+                document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
+            })
+            .catch(error => {
+                console.error('Error fetching moon phase data:', error);
+                document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
+            });
+        };
+
+        window.onload = fetchMoonPhase;
+    </script>
 </body>
 </html>
