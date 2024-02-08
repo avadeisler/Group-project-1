@@ -2,6 +2,13 @@
 
 //Global Var List
 let catFact;
+let lat;
+let long;
+let today = dayjs().format('YYYY-MM-DD');
+let now = dayjs().format('HH:mm:ss')
+
+console.log(today);
+console.log(now);
 
 let corsKey ='temp_3b96f43bf425f922c76ba59cea93db0a';
 
@@ -15,9 +22,16 @@ document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 fetch('https://ipapi.co/json/')
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         const city = data.city;
         const country = data.country_name;
+        lat = data.latitude;
+        console.log(lat);
+        long = data.longitude;
+        console.log(long);
         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+
+        fetchBodyPosition();
     })
     .catch(error => {
         console.error('Error fetching current location:', error);
@@ -74,9 +88,8 @@ var astroSecret = '54b7eb10e73c339f0d395c7fc83d455cd8cbe47e082ffd663757a9033f11f
 const authString = btoa(astroId + ':' + astroSecret);
 const astroUrl = 'https://api.astronomyapi.com/api/v2/bodies';
 
-const fetchMoonPhase = () => {
-    fetch(astroUrl, {
-        // credentials: 'include',
+const fetchBodyPosition = () => {
+    fetch(astroUrl+'/positions?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+today+'&time='+now+'&elevation=0', {
         headers: {
             'Authorization': 'Basic ' + authString
         }  
@@ -120,5 +133,5 @@ const fetchCatFact = () => {
 }
 
 
-window.onload = fetchMoonPhase;
+// window.onload = fetchMoonPhase;
 fetchCatFact();
