@@ -5,9 +5,11 @@ let catFact;
 let lat;
 let long;
 let today = dayjs().format('YYYY-MM-DD');
+let oneYear = dayjs().add(1, 'year').format('YYYY-MM-DD');
 let now = dayjs().format('HH:mm:ss')
 
 console.log(today);
+console.log(oneYear);
 console.log(now);
 
 let corsKey ='temp_3b96f43bf425f922c76ba59cea93db0a';
@@ -32,6 +34,7 @@ fetch('https://ipapi.co/json/')
         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
 
         fetchBodyPosition();
+        fetchMoonEvent();
     })
     .catch(error => {
         console.error('Error fetching current location:', error);
@@ -90,6 +93,33 @@ const astroUrl = 'https://api.astronomyapi.com/api/v2/bodies';
 
 const fetchBodyPosition = () => {
     fetch(astroUrl+'/positions?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+today+'&time='+now+'&elevation=0', {
+        headers: {
+            'Authorization': 'Basic ' + authString
+        }  
+    })
+    .then(response => {
+        // if (!response.ok) {
+        //     throw new Error('Failed to fetch moon phase information');
+        // }
+        // console.log(response);
+        return response.json();
+    })
+    .then(data => {
+        // console.log("Hello");
+        console.log(data);
+        // const moonPhase = data.moon_phase;
+        
+        // Display moon phase information
+        // document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
+    })
+    .catch(error => {
+        console.error('Error fetching moon phase data:', error);
+        document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
+    });
+};
+
+const fetchMoonEvent = () => {
+    fetch(astroUrl+'/events/moon?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+oneYear+'&time='+now+'&elevation=0', {
         headers: {
             'Authorization': 'Basic ' + authString
         }  
