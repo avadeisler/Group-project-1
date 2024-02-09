@@ -74,7 +74,7 @@ const fetchMoonPhase = () => {
     .then(data => {
         console.log(data); // Log the response data to the console
         const imageUrl = data.data.imageUrl;
-        document.getElementById('moonPhase').innerHTML = `<img src="${imageUrl}" alt="Moon Phase Image">`; // Display moon phase image
+        document.getElementById('moonPhase').innerHTML = `<img src="${imageUrl}" alt="Moon Phase Image">`;
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
@@ -83,7 +83,6 @@ const fetchMoonPhase = () => {
 };
 
 // Google Maps API
-// Initialize and add the map
 // Initialize and add the map
 let map;
 
@@ -108,11 +107,19 @@ async function initMap() {
     position: position,
     title: "Uluru",
   });
+
+  map.addListener("center_changed", () => {
+    window.setTimeout(() => {
+        map.panTo(marker.getPosition());
+    }, 3000);
+  });
+  marker.addListener("click", () => {
+    map.setZoom(8);
+    map.setCenter(marker.getPosition());
+  });
 }
-
-
 
 window.onload = () => {
     fetchMoonPhase();
-    initMap();
+    initMap(); // Initialize Google Map
 };
