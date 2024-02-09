@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Witchy-weather</title>
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <style>
-        body {
-            background-image: url('./assets/images/clouds_background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
         #map {
             position: fixed;
             top: 0;
@@ -22,45 +17,73 @@
             height: 300px;
             z-index: 1000;
         }
+
+        /* Additional CSS for the new HTML */
+        .room {
+            /* Your custom CSS styles for the room */
+        }
+
+        /* Custom font for bat letters */
+        .bat-font {
+            font-family: 'Gothic', sans-serif;
+            /* Replace 'Gothic' with the actual name of your gothic font */
+        }
+
+        /* Add more custom CSS styles for the new elements as needed */
     </style>
 </head>
-<body class="text-yellow-500 flex flex-col h-screen justify-center items-center">
+
+<body class="bg-gray-800"> <!-- Changed background color to dark gray using Tailwind CSS -->
+
     <!-- Example Tailwind CSS classes applied to body -->
+    <div class="flex justify-evenly items-center">
+        <!-- Left side: Window -->
+        <div class="room-wrapper">
+            <div class="room">
+                <div class="window">
+                    <div class="stars"></div>
+                    <div class="star"></div>
+                    <div id="moon" class="moon"></div>
+                    <div class="cloud"></div>
+                    <div class="eiffel-tower">
+                        <div class="platform"></div>
+                    </div>
+                    <div class="roof"></div>
+                    <div class="bush"></div>
+                </div>
+                <div class="window-sill">
+                    <div class="cat">
+                        <div class="head">
+                            <div class="eyes"></div>
+                        </div>
+                        <div class="tail"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header -->
+        <div class="text-center mb-8 bat-font mt-20">
+            <h1 class="text-5xl font-bold text-white pt-25">Tonight's Spell Cast</h1>
+            <p class="text-2xl text-white">Witchy Weather App</p>
+        </div>
 
-    <!-- Header -->
-    <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold">Tonight's Spell Cast</h1>
-        <p class="text-xl">Witchy Weather App</p>
-    </div>
-
-    <!-- Top Navigation -->
-    <div class="topnav mb-8 flex justify-around">
-        <span id="currentLocation" class="text-lg"></span> <!-- Display current location here -->
-        <span class="text-lg mx-8"> </span> <!-- Add space -->
-        <span class="text-lg mx-2"> </span> <!-- Add space -->
-        <span id="currentDate" class="text-lg"> </span> <!-- Display current date here -->
-        <span class="text-lg mx-4"> </span> <!-- Add space -->
-        <span id="currentTime" class="text-lg"> </span> <!-- Display current time here -->
-    </div>
-
-    <!-- Main Content -->
+        <!-- Right side: Moon Phase -->
+        <div class="flex items-center">
+            <div class="card mb-8 mt-50 mr-10">
+                <div id="moonPhase"></div> <!-- Display moon phase information here -->
+            </div>
+        </div>
+      <!-- Main Content -->
     <div class="grid grid-cols-2 gap-8">
 
         <!-- Left Column -->
         <div class="leftcolumn">
 
-            <!-- Moon Phase -->
-            <div class="card mb-8">
-                <h2 class="text-2xl font-semibold">Show Current Moon Phase</h2>
-                <div id="moonPhase"></div> <!-- Display moon phase information here -->
-                <p class="text-base">Info about current moon phase</p>
-            </div>
-
             <!-- Astronomy Events -->
             <div class="card">
-                <h2 class="text-2xl font-semibold">Show Current Astronomy Events</h2>
+                <h2 class="text-2xl font-semibold text-white">Show Current Astronomy Events</h2>
                 <!-- Astronomy Events API -->
-                <p class="text-base">Info about astronomy event</p>
+                <p class="text-base text-white">Info about astronomy event</p>
             </div>
 
         </div>
@@ -70,31 +93,43 @@
 
             <!-- Constellation -->
             <div class="card">
-                <h2 class="text-2xl font-semibold">Show Current Constellation Above You</h2>
+                <h2 class="text-2xl font-semibold text-white">Show Current Constellation Above You</h2>
                 <!-- List Names of Constellations Above You -->
                 <!-- No Images Needed, Don't Want To Overpack The Page -->
             </div>
 
         </div>
-        <!-- Cat Image -->
-        <div class="flex justify-center items-center mt-8">
-            <img src="./assets/images/cat.png" alt="Cat Image" class="w-64 h-auto">
-        </div>
 
     </div>
-
     <!-- Google Maps API -->
     <div id="map"></div>
+    </div>
+
+
+
+
+    <!-- Top Navigation -->
+    <div class="topnav mb-8 flex justify-around">
+        <span id="currentLocation" class="text-lg text-white"></span> <!-- Display current location here -->
+        <span class="text-lg mx-8 text-white"> </span> <!-- Add space -->
+        <span class="text-lg mx-2 text-white"> </span> <!-- Add space -->
+        <span id="currentDate" class="text-lg text-white"> </span> <!-- Display current date here -->
+        <span class="text-lg mx-4 text-white"> </span> <!-- Add space -->
+        <span id="currentTime" class="text-lg text-white"> </span> <!-- Display current time here -->
+    </div>
+
+    
 
     <!-- JavaScript imports -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js" integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script> <!-- Include your JavaScript file -->
     <script>
         // JavaScript code...
 
-    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        ({key: "AIzaSyCZh_Vglc07qflCEIcRBMCH-36vMDArDco", v: "weekly"});
+        // Your existing JavaScript code
     </script>
 </body>
+
 </html>
