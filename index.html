@@ -35,10 +35,7 @@
             <!-- Moon Phase -->
             <div class="card mb-8">
                 <h2 class="text-2xl font-semibold">Show Current Moon Phase</h2>
-                <h5>Moon Rise:</h5>
-                <h5>Moon Set:</h5>
-                <!-- Moon Phase API -->
-                <!-- Moon cycle img -->
+                <div id="moonPhase"></div> <!-- Display moon phase information here -->
                 <p class="text-base">Info about current moon phase</p>
             </div>
 
@@ -57,6 +54,7 @@
             <!-- Constellation -->
             <div class="card">
                 <h2 class="text-2xl font-semibold">Show Current Constellation Above You</h2>
+                <div id="starDisplay"></div>
                 <!-- List Names of Constellations Above You -->
                 <!-- No Images Needed, Don't Want To Overpack The Page -->
             </div>
@@ -74,5 +72,15 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script> <!-- Include your JavaScript file -->
+    <script>
+        // Fetch current date and time using Day.js
+        document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY');
+        document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
+
+        // Define your AstronomyAPI credentials
+        const applicationId = '7f7ceb9c-e61c-46d8-902f-6339015ada71';
+        const applicationSecret = 'ef4a8a96cb60bf0545d5e39a4ea8654922a0fbe4a31265c5813aeb998698bee0b65c3eaba3c58797433ba220ec75514fd40f56a4cd9f43c6c90b51ded91472aef574fa589bf394b9ecf736929be28fa2bfb57c2b726a459e074643252b996ef792b76307afab559a9e048c8241eb0d64';
+        
+    </script>
 </body>
 </html>

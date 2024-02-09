@@ -4,9 +4,34 @@
 let catFact;
 let lat;
 let long;
+let sZodia;
+let sAzimuth;
+let sAltitude;
+let sDeclination;
+let sAscension;
+let sMagnitude;
+let sDistance;
+let lZodia;
+let lAzimuth;
+let lAltitude;
+let lDeclination;
+let lAscension;
+let lMagnitude;
+let lDistance;
+let vZodia;
+let vAzimuth;
+let vAltitude;
+let vDeclination;
+let vAscension;
+let vMagnitude;
+let vDistance;
 let today = dayjs().format('YYYY-MM-DD');
 let oneYear = dayjs().add(1, 'year').format('YYYY-MM-DD');
 let now = dayjs().format('HH:mm:ss')
+
+let starDisplay = document.getElementById('starDisplay');
+
+starDisplay.classList.add('bg-green')
 
 console.log(today);
 console.log(oneYear);
@@ -35,57 +60,13 @@ fetch('https://ipapi.co/json/')
 
         fetchBodyPosition();
         fetchMoonEvent();
-        fetchStarChart();
-        fetchStarChart2();
+        fetchMoonPhase();
     })
     .catch(error => {
         console.error('Error fetching current location:', error);
         document.getElementById('currentLocation').innerText = 'Error fetching current location';
     });
 
-// Define your Meteomatics API credentials
-const username = 'home_asenciomorales_carlos';
-const password = 'KiyoL21L3u';
-
-// Construct the API request URL
-const apiUrl = 'httpss://proxy.cors.sh/https://api.meteomatics.com/2024-02-02T00:00:00ZP1D:P1D/moon_phase:idx/50,10/json';
-
-// fetch('https://proxy.cors.sh/https://acme.com', {
-//   headers: {
-//   'x-cors-api-key': 'temp_3b96f43bf425f922c76ba59cea93db0a'
-//   }
-// })
-
-
-// Function to fetch moon phase information from Meteomatics API
-// const fetchMoonPhase = () => {
-//     fetch(apiUrl, {
-//         headers: {
-//             'Authorization': 'Basic ' + btoa(username + ':' + password)
-//         }
-        
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Failed to fetch moon phase information');
-//         }
-//         console.log(response);
-//         return response.json();
-//     })
-//     .then(data => {
-//         console.log("Hello");
-//         const moonPhase = data.moon_phase;
-        
-//         // Display moon phase information
-//         document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
-//     })
-//     .catch(error => {
-//         console.error('Error fetching moon phase data:', error);
-//         document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
-//     });
-// };
-
-// Call the fetchMoonPhase function when the page loads
 var astroId = 'fa8ed31d-c323-4bdd-9233-20d960020694';
 var astroSecret = '54b7eb10e73c339f0d395c7fc83d455cd8cbe47e082ffd663757a9033f11fdb335c1ec0c2be03aefdce41970b072cca2eefcfa4dd2a210325020ce3ae99afb0c8c7bee8df8481148ad05bc3486bf4a59e8bc854076c10d4d95890f7a99abea95b9d07c282f98b30ff06347020fb355fe'
 
@@ -100,19 +81,57 @@ const fetchBodyPosition = () => {
         }  
     })
     .then(response => {
-        // if (!response.ok) {
-        //     throw new Error('Failed to fetch moon phase information');
-        // }
-        // console.log(response);
         return response.json();
     })
     .then(data => {
-        // console.log("Hello");
         console.log(data);
-        // const moonPhase = data.moon_phase;
+        sZodia = data.data.table.rows[0].cells[0].position.constellation.name;
+        sAzimuth = data.data.table.rows[0].cells[0].position.horizontal.azimuth.degrees;
+        sAltitude = data.data.table.rows[0].cells[0].position.horizontal.altitude.degrees;
+        sDeclination = data.data.table.rows[0].cells[0].position.equatorial.declination.degrees;
+        sAscension = data.data.table.rows[0].cells[0].position.equatorial.rightAscension.hours;
+        sMagnitude = data.data.table.rows[0].cells[0].extraInfo.magnitude;
+        sDistance = data.data.table.rows[0].cells[0].distance.fromEarth.au;
+        lZodia = data.data.table.rows[1].cells[0].position.constellation.name;
+        lAzimuth = data.data.table.rows[1].cells[0].position.horizontal.azimuth.degrees;
+        lAltitude = data.data.table.rows[1].cells[0].position.horizontal.altitude.degrees;
+        lDeclination = data.data.table.rows[1].cells[0].position.equatorial.declination.degrees;
+        lAscension = data.data.table.rows[1].cells[0].position.equatorial.rightAscension.hours;
+        lMagnitude = data.data.table.rows[1].cells[0].extraInfo.magnitude;
+        lDistance = data.data.table.rows[1].cells[0].distance.fromEarth.au;
+        vZodia = data.data.table.rows[3].cells[0].position.constellation.name;
+        vAzimuth = data.data.table.rows[3].cells[0].position.horizontal.azimuth.degrees;
+        vAltitude = data.data.table.rows[3].cells[0].position.horizontal.altitude.degrees;
+        vDeclination = data.data.table.rows[3].cells[0].position.equatorial.declination.degrees;
+        vAscension = data.data.table.rows[3].cells[0].position.equatorial.rightAscension.hours
+        ;
+        vMagnitude = data.data.table.rows[3].cells[0].extraInfo.magnitude;
+        vDistance = data.data.table.rows[3].cells[0].distance.fromEarth.au;
+
+        console.log(sZodia);
+        console.log(sAltitude);
+        console.log(sAscension);
+        console.log(sAzimuth);
+        console.log(sDeclination);
+        console.log(sDistance);
+        console.log(sMagnitude);
+
+        console.log(lZodia);
+        console.log(lAltitude);
+        console.log(lAscension);
+        console.log(lAzimuth);
+        console.log(lDeclination);
+        console.log(lDistance);
+        console.log(lMagnitude);
+
+        console.log(vZodia);
+        console.log(vAltitude);
+        console.log(vAscension);
         
-        // Display moon phase information
-        // document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
+        console.log(vAzimuth);
+        console.log(vDeclination);
+        console.log(vDistance);
+        console.log(vMagnitude);
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
@@ -127,19 +146,10 @@ const fetchMoonEvent = () => {
         }  
     })
     .then(response => {
-        // if (!response.ok) {
-        //     throw new Error('Failed to fetch moon phase information');
-        // }
-        // console.log(response);
-        return response();
+        return response.json();
     })
     .then(data => {
-        // console.log("Hello");
         console.log(data);
-        // const moonPhase = data.moon_phase;
-        
-        // Display moon phase information
-        // document.getElementById('moonPhase').innerHTML = `<p>Moon Phase: ${moonPhase}</p>`;
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
@@ -147,31 +157,53 @@ const fetchMoonEvent = () => {
     });
 };
 
-const fetchStarChart = () => {
-    fetch(astroUrl+'/studio/star-chart?latitude='+lat+'&longitude='+long+'&date='+today+'&type=constellation', {
-        headers: {
-            'Authorization': 'Basic ' + authString
-        }  
-        body: {
-            "style": "inverted",
-            "observer": {
-                "latitude": lat,
-                "longitude": long,
-                "date": today
-            },
-            "view": {
-                "type": "constellation",
-                "parameters": {
-                    "constellation": "ori" // 3 letter constellation id
-                }
-            }
+
+
+
+
+
+
+// Function to fetch moon phase information from AstronomyAPI
+const fetchMoonPhase = () => {
+    const observer = {
+        latitude: lat,
+        longitude: long,
+        date: today // Use the formatted current date
+    };
+
+    const data = JSON.stringify({
+        style: {
+            moonStyle: "sketch",
+            backgroundStyle: "stars",
+            backgroundColor: "#000000",
+            headingColor: "#ffffff",
+            textColor: "#ffffff"
+        },
+        observer,
+        view: {
+            type: "portrait-simple",
+            orientation: "south-up"
         }
+    });
+
+    fetch(astroUrl+'/studio/moon-phase', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Basic ${authString}`,
+            // "Origin": "https://api.astronomyapi.com/api/v2/studio/moon-phase" // Set the Origin to the domain of the website
+        },
+        body: data
     })
     .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch moon phase information');
+        }
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        const imageUrl = data.data.imageUrl;
+        document.getElementById('moonPhase').innerHTML = `<img src="${imageUrl}" alt="Moon Phase Image">`; // Display moon phase image
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
@@ -179,23 +211,7 @@ const fetchStarChart = () => {
     });
 };
 
-const fetchStarChart2 = () => {
-    fetch(astroUrl+'/studio/star-chart?latitude='+lat+'&longitude='+long+'&date='+today+'&type=constellation', {
-        headers: {
-            'Authorization': 'Basic ' + authString
-        }  
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error fetching moon phase data:', error);
-        document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
-    });
-};
+
 
 const catFactUrl = 'https://cat-fact.herokuapp.com/facts';
 
@@ -205,7 +221,7 @@ const fetchCatFact = () => {
         return response.json();
     })
     .then(data => {
-        console.log(data)
+        console.log(data);
         catFact = data[0].text;
         console.log(catFact);
     })
@@ -214,6 +230,19 @@ const fetchCatFact = () => {
     })
 }
 
-
-// window.onload = fetchMoonPhase;
 fetchCatFact();
+
+function fetchCatalog() {
+    fetch('https://api.astrocats.space')
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data)
+    })
+    .catch(error => {
+        console.error('Error fetching cat data:', error);
+    })
+}
+
+fetchCatalog();
