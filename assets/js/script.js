@@ -53,6 +53,9 @@ fetch('https://ipapi.co/json/')
         const country = data.country_name;
         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
 
+        lat = data.latitude;
+        long = data.longitude;
+
         fetchBodyPosition();
         fetchMoonEvent();
         fetchMoonPhase();
