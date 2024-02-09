@@ -1,5 +1,45 @@
 //Global Var List
 let catFact;
+let lat;
+let long;
+let sZodia;
+let sAzimuth;
+let sAltitude;
+let sDeclination;
+let sAscension;
+let sMagnitude;
+let sDistance;
+let lZodia;
+let lAzimuth;
+let lAltitude;
+let lDeclination;
+let lAscension;
+let lMagnitude;
+let lDistance;
+let vZodia;
+let vAzimuth;
+let vAltitude;
+let vDeclination;
+let vAscension;
+let vMagnitude;
+let vDistance;
+let today = dayjs().format('YYYY-MM-DD');
+let oneYear = dayjs().add(1, 'year').format('YYYY-MM-DD');
+let now = dayjs().format('HH:mm:ss')
+
+let starDisplay = document.getElementById('starDisplay');
+
+starDisplay.classList.add('bg-green')
+
+
+console.log(today);
+console.log(oneYear);
+console.log(now);
+
+let corsKey ='temp_3b96f43bf425f922c76ba59cea93db0a';
+
+// Display current date in the header using Day.js
+document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY');
 
 // Get current date using Day.js and format it
 const currentDate = dayjs().format('YYYY-MM-DD');
@@ -17,6 +57,13 @@ fetch('https://ipapi.co/json/')
         const city = data.city;
         const country = data.country_name;
         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+
+        lat = data.latitude;
+        long = data.longitude;
+
+        fetchBodyPosition();
+        fetchMoonEvent();
+        fetchMoonPhase();
     })
     .catch(error => {
         console.error('Error fetching current location:', error);
@@ -118,7 +165,52 @@ async function initMap() {
     map.setCenter(marker.getPosition());
   });
 }
+fetchCatalog();
 
+// // Google Maps API
+// // Initialize and add the map
+// // Initialize and add the map
+// let map;
+
+// async function initMap() {
+//     // The location of Uluru
+//     const position = { lat: -25.344, lng: 131.031 };
+//     // Request needed libraries.
+//     //@ts-ignore
+//     const { Map } = await google.maps.importLibrary("maps");
+//     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+  
+//     // The map, centered at Uluru
+//     map = new Map(document.getElementById("map"), {
+//       zoom: 4,
+//       center: position,
+//       mapId: "DEMO_MAP_ID",
+//     });
+  
+//     // The marker, positioned at Uluru
+//     const marker = new AdvancedMarkerElement({
+//       map: map,
+//       position: position,
+//       title: "Uluru",
+//     });
+  
+//     map.addListener("center_changed", () => {
+//       window.setTimeout(() => {
+//           map.panTo(marker.getPosition());
+//       }, 3000);
+//     });
+//     marker.addListener("click", () => {
+//       map.setZoom(8);
+//       map.setCenter(marker.getPosition());
+//     });
+//   }
+
+
+
+// window.onload = () => {
+//     fetchMoonPhase();
+//     initMap();
+// };
 window.onload = () => {
     fetchMoonPhase();
     initMap(); // Initialize Google Map
