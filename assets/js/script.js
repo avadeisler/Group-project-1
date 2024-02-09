@@ -49,13 +49,8 @@ document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 fetch('https://ipapi.co/json/')
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         const city = data.city;
         const country = data.country_name;
-        lat = data.latitude;
-        console.log(lat);
-        long = data.longitude;
-        console.log(long);
         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
 
         fetchBodyPosition();
