@@ -33,6 +33,7 @@ let starDisplay = document.getElementById('starDisplay');
 
 starDisplay.classList.add('bg-green')
 
+
 console.log(today);
 console.log(oneYear);
 console.log(now);
