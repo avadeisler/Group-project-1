@@ -61,13 +61,6 @@ let venusMagnitude = document.createElement('p');
 let venusDistance= document.createElement('p');
 
 
-
-
-
-
-starDisplay.classList.add('bg-green')
-
-
 console.log(today);
 console.log(oneYear);
 console.log(now);
