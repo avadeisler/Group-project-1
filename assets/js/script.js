@@ -2,8 +2,8 @@
 
 //Global Var List
 let catFact;
-let lat;
-let long;
+let lat = 40.75344;
+let long = -88.29310;
 let sZodia;
 let sAzimuth;
 let sAltitude;
@@ -28,8 +28,42 @@ let vDistance;
 let today = dayjs().format('YYYY-MM-DD');
 let oneYear = dayjs().add(1, 'year').format('YYYY-MM-DD');
 let now = dayjs().format('HH:mm:ss')
+let month = parseFloat(dayjs().format('MM'));
+
+console.log(lat);
+
+console.log(month);
 
 let starDisplay = document.getElementById('starDisplay');
+let positionList = document.getElementById('positionLabels');
+let zodiaImg = document.getElementById('zodiac').firstElementChild;
+
+let sunZodia = document.createElement('p');
+let sunAzimuth = document.createElement('p');
+let sunAltitude = document.createElement('p');
+let sunDeclination = document.createElement('p');
+let sunAscension = document.createElement('p');
+let sunMagnitude = document.createElement('p');
+let sunDistance = document.createElement('p');
+let lunarZodia = document.createElement('p');
+let lunarAzimuth = document.createElement('p');
+let lunarAltitude = document.createElement('p');
+let lunarDeclination = document.createElement('p');
+let lunarAscension = document.createElement('p');
+let lunarMagnitude = document.createElement('p');
+let lunarDistance = document.createElement('p');
+let venusZodia = document.createElement('p');
+let venusAzimuth = document.createElement('p');
+let venusAltitude = document.createElement('p');
+let venusDeclination = document.createElement('p');
+let venusAscension = document.createElement('p');
+let venusMagnitude = document.createElement('p');
+let venusDistance= document.createElement('p');
+
+
+
+
+
 
 starDisplay.classList.add('bg-green')
 
@@ -47,24 +81,22 @@ document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY
 document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 
 // Get current location
-fetch('https://ipapi.co/json/')
-    .then(response => response.json())
-    .then(data => {
-        const city = data.city;
-        const country = data.country_name;
-        document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+// fetch('https://ipapi.co/json/')
+//     .then(response => response.json())
+//     .then(data => {
+//         const city = data.city;
+//         const country = data.country_name;
+//         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
 
-        lat = data.latitude;
-        long = data.longitude;
+//         lat = data.latitude;
+//         long = data.longitude;
+//     })
+//     .catch(error => {
+//         console.error('Error fetching current location:', error);
+//         document.getElementById('currentLocation').innerText = 'Error fetching current location';
+//     });
 
-        fetchBodyPosition();
-        fetchMoonEvent();
-        fetchMoonPhase();
-    })
-    .catch(error => {
-        console.error('Error fetching current location:', error);
-        document.getElementById('currentLocation').innerText = 'Error fetching current location';
-    });
+
 
 var astroId = 'fa8ed31d-c323-4bdd-9233-20d960020694';
 var astroSecret = '54b7eb10e73c339f0d395c7fc83d455cd8cbe47e082ffd663757a9033f11fdb335c1ec0c2be03aefdce41970b072cca2eefcfa4dd2a210325020ce3ae99afb0c8c7bee8df8481148ad05bc3486bf4a59e8bc854076c10d4d95890f7a99abea95b9d07c282f98b30ff06347020fb355fe'
@@ -102,35 +134,56 @@ const fetchBodyPosition = () => {
         vAzimuth = data.data.table.rows[3].cells[0].position.horizontal.azimuth.degrees;
         vAltitude = data.data.table.rows[3].cells[0].position.horizontal.altitude.degrees;
         vDeclination = data.data.table.rows[3].cells[0].position.equatorial.declination.degrees;
-        vAscension = data.data.table.rows[3].cells[0].position.equatorial.rightAscension.hours
-        ;
+        vAscension = data.data.table.rows[3].cells[0].position.equatorial.rightAscension.hours;
         vMagnitude = data.data.table.rows[3].cells[0].extraInfo.magnitude;
         vDistance = data.data.table.rows[3].cells[0].distance.fromEarth.au;
 
-        console.log(sZodia);
-        console.log(sAltitude);
-        console.log(sAscension);
-        console.log(sAzimuth);
-        console.log(sDeclination);
-        console.log(sDistance);
-        console.log(sMagnitude);
 
-        console.log(lZodia);
-        console.log(lAltitude);
-        console.log(lAscension);
-        console.log(lAzimuth);
-        console.log(lDeclination);
-        console.log(lDistance);
-        console.log(lMagnitude);
+        sunZodia.textContent = "Solar Zodia: " + sZodia;
+        sunAzimuth.textContent = 'Solar Azimuth: ' + sAzimuth;
+        sunAltitude.textContent = 'Solar Altitude: ' + sAltitude;
+        sunDeclination.textContent = 'Solar Declination: ' + sDeclination;
+        sunAscension.textContent = 'Solar Ascension: ' + sAscension;
+        sunMagnitude.textContent = 'Solar Magnitude: ' + sMagnitude ;
+        sunDistance.textContent = 'Solar Distance: ' + sDistance;
+        lunarZodia.textContent = "Lunar Zodia: " + lZodia;
+        lunarAzimuth.textContent = 'Lunar Azimuth: ' + lAzimuth;
+        lunarAltitude.textContent = 'Lunar Altitude: ' + lAltitude;
+        lunarDeclination.textContent = 'Lunar Declination: ' + lDeclination;
+        lunarAscension.textContent = 'Lunar Ascension: ' + lAscension;
+        lunarMagnitude.textContent = 'Lunar Magnitude: ' + lMagnitude ;
+        lunarDistance.textContent = 'Lunar Distance: ' + lDistance;        
+        venusZodia.textContent = "Morning Star Zodia: " + vZodia;
+        venusAzimuth.textContent = 'Morning Star Azimuth: ' + vAzimuth;
+        venusAltitude.textContent = 'Morning Star Altitude: ' + vAltitude;
+        venusDeclination.textContent = 'Morning Star Declination: ' + vDeclination;
+        venusAscension.textContent = 'Morning Star Ascension: ' + vAscension;
+        venusMagnitude.textContent = 'Morning Star Magnitude: ' + vMagnitude ;
+        venusDistance.textContent = 'Morning Star Distance: ' + vDistance;
 
-        console.log(vZodia);
-        console.log(vAltitude);
-        console.log(vAscension);
-        
-        console.log(vAzimuth);
-        console.log(vDeclination);
-        console.log(vDistance);
-        console.log(vMagnitude);
+        positionList.appendChild(sunZodia);
+        positionList.appendChild(sunAzimuth);
+        positionList.appendChild(sunAltitude);
+        positionList.appendChild(sunDeclination);
+        positionList.appendChild(sunAscension);
+        positionList.appendChild(sunMagnitude);
+        positionList.appendChild(sunDistance);
+        positionList.appendChild(lunarZodia);
+        positionList.appendChild(lunarAzimuth);
+        positionList.appendChild(lunarAltitude);
+        positionList.appendChild(lunarDeclination);
+        positionList.appendChild(lunarAscension);
+        positionList.appendChild(lunarMagnitude);
+        positionList.appendChild(lunarDistance);
+        positionList.appendChild(venusZodia);
+        positionList.appendChild(venusAzimuth);
+        positionList.appendChild(venusAltitude);
+        positionList.appendChild(venusDeclination);
+        positionList.appendChild(venusAscension);
+        positionList.appendChild(venusMagnitude);
+        positionList.appendChild(venusDistance);
+
+        zodiaImg.src='./assets/images/'+sZodia+'.jpg'
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
@@ -289,4 +342,204 @@ fetchCatalog();
 // window.onload = () => {
 //     fetchMoonPhase();
 //     initMap();
-// };
+// }
+
+fetchBodyPosition();
+    fetchMoonEvent();
+    fetchMoonPhase();
+    
+
+
+
+const constellations = [
+    {
+        name: "Andromeda, Triangulum",
+        latRange: [-40, 90],
+        monthRange: [9, 10, 11, 12, 1, 2]
+    },
+    {
+        name: "Aquarius",
+        latRange: [-90, 65],
+        monthRange: [9, 10, 11, 12, 1, 2]
+    },
+    {
+        name: "Aries",
+        latRange: [-60, 90],
+        monthRange: [10, 11, 12, 1, 2, 3]
+    },
+    {
+        name: "Auriga",
+        latRange: [-40, 90],
+        monthRange: [11, 12, 1, 2, 3]
+    },
+    {
+        name: "Bootes, Canes Venatici, Coma Berenices",
+        latRange: [-50, 90],
+        monthRange: [3, 4, 5, 6, 7]
+    },
+    {
+        name: "Camelopardalis",
+        latRange: [20, 90],
+        monthRange: [12, 1, 2, 3]
+    },
+    {
+        name: "Cancer",
+        latRange: [-60, 90],
+        monthRange: [3, 4, 5, 6]
+    },
+    {
+        name: "Canis Major, Lepus, Columba Noachi, Caelum",
+        latRange: [-90, 60],
+        monthRange: [12, 1, 2, 3]
+    },
+    {
+        name: "Capricornus",
+        latRange: [-90, 60],
+        monthRange: [8, 9, 10]
+    },
+    {
+        name: "Cassiopeia",
+        latRange: [-20, 90],
+        monthRange: [9, 10, 11, 12, 1, 2, 3, 4]
+    },
+    {
+        name: "Cepheus",
+        latRange: [-10, 90],
+        monthRange: [10, 11, 12, 1, 2, 3]
+    },
+    {
+        name: "Cetus, Eridanus, Sculptor, Fornax",
+        latRange: [-90, 70],
+        monthRange: [11, 12, 1, 2, 3]
+    },
+    {
+        name: "Delphinus, Sagitta, Aquila",
+        latRange: [-70, 90],
+        monthRange: [8, 9, 10]
+    },
+    {
+        name: "Draco",
+        latRange: [-15, 90],
+        monthRange: [4, 5, 6, 7, 8, 9]
+    },
+    {
+        name: "Gemini",
+        latRange: [-60, 90],
+        monthRange: [12, 1, 2, 3, 4]
+    },
+    {
+        name: "Hercules, Corona Borealis",
+        latRange: [-50, 90],
+        monthRange: [4, 5, 6, 7, 8, 9]
+    },
+    {
+        name: "Hydra, Corvus, Crater, Sextans, Lupus, Centaurus, Antlia, Pyxis",
+        latRange: [-83, 54],
+        monthRange: [3, 4, 5]
+    },
+    {
+        name: "Lacerta, Cygnus, Lyra, Vulpecula",
+        latRange: [40, 90],
+        monthRange: [9, 10, 11, 12, 1, 2]
+    },
+    {
+        name: "Leo Major, Leo Minor",
+        latRange: [-65, 90],
+        monthRange: [3, 4, 5, 6]
+    },
+    {
+        name: "Libra",
+        latRange: [-90, 65],
+        monthRange: [4, 5, 6, 7, 8]
+    },
+    {
+        name: "Lynx, Telescopium",
+        latRange: [40, 90],
+        monthRange: [12, 1, 2, 3]
+    },
+    {
+        name: "Monoceros, Canis Minor",
+        latRange: [-90, 75],
+        monthRange: [12, 1, 2, 3]
+    },
+    {
+        name: "Ophiuchus, Serpens, Scutum",
+        latRange: [-80, 80],
+        monthRange: [7, 8, 9]
+    },
+    {
+        name: "Orion",
+        latRange: [-75, 85],
+        monthRange: [12, 1, 2, 3]
+    },
+    {
+        name: "Pegasus, Equuleus",
+        latRange: [-60, 90],
+        monthRange: [9, 10, 11, 12, 1, 2, 3]
+    },
+    {
+        name: "Perseus",
+        latRange: [-35, 90],
+        monthRange: [9, 10, 11, 12, 1, 2, 3]
+    },
+    {
+        name: "Pisces",
+        latRange: [-65, 90],
+        monthRange: [10, 11, 12, 1, 2, 3]
+    },
+    {
+        name: "Sagittarius, Corona Australis",
+        latRange: [-90, 60],
+        monthRange: [6, 7, 8]
+    },
+    {
+        name: "Scorpius",
+        latRange: [-90, 40],
+        monthRange: [4, 5, 6, 7]
+    },
+    {
+        name: "Taurus",
+        latRange: [-65, 90],
+        monthRange: [12, 1, 2, 3]
+    },
+    {
+        name: "Ursa Minor",
+        latRange: [10, 90],
+        monthRange: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    {
+        name: "Ursa Major",
+        latRange: [-30, 90],
+        monthRange: [3, 4, 5, 6, 7, 8, 9, 10]
+    }
+];
+
+console.log(constellations);
+
+function displayConstellation() {
+
+    let visibleConstellations = [];
+
+    for (i=0; i<constellations.length; i++) {
+        console.log(lat);
+        console.log(constellations[i].latRange)
+        console.log(month);
+
+        if (lat >= constellations[i].latRange[0] && lat <= constellations[i].latRange[1] &&
+            constellations[i].monthRange.includes(month)) {
+            visibleConstellations.push(constellations[i].name);
+            console.log(constellations[i])
+        }
+    }
+    const constellationElement = document.getElementById("constellation");
+    if (visibleConstellations.length > 0) {
+        constellationElement.textContent = visibleConstellations.join(", ");
+    } else {
+        constellationElement.textContent = "No visible constellations for the given latitude and month.";
+    }
+
+    console.log(constellations[1])
+}
+
+
+displayConstellation();
