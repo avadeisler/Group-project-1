@@ -1,7 +1,7 @@
 // Global Var List
 let catFact;
-let lat = 40.75344;
-let long = -88.29310;
+let lat;
+let long;
 let sZodia;
 let sAzimuth;
 let sAltitude;
@@ -33,8 +33,14 @@ console.log(lat);
 console.log(month);
 
 let starDisplay = document.getElementById('starDisplay');
-let positionList = document.getElementById('positionLabels');
+let sunList = document.getElementById('sunPosition');
+let moonList = document.getElementById('moonPosition');
+let venusList = document.getElementById('venusPosition');
 let zodiaImg = document.getElementById('zodiac').firstElementChild;
+let constellation1 = document.getElementById('img2');
+let constellation2 = document.getElementById('img3');
+
+zodiaImg.id = 'zodiaImg'
 
 let sunZodia = document.createElement('p');
 let sunAzimuth = document.createElement('p');
@@ -72,20 +78,34 @@ document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY
 document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 
 // Get current location
-// fetch('https://ipapi.co/json/')
-//     .then(response => response.json())
-//     .then(data => {
-//         const city = data.city;
-//         const country = data.country_name;
-//         document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
 
-//         lat = data.latitude;
-//         long = data.longitude;
-//     })
-//     .catch(error => {
-//         console.error('Error fetching current location:', error);
-//         document.getElementById('currentLocation').innerText = 'Error fetching current location';
-//     });
+function getLocation() {
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const city = data.city;
+            const country = data.country_name;
+            document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+
+            lat = data.latitude;
+            long = data.longitude;
+
+            console.log(lat);
+            console.log(long);
+            
+            fetchBodyPosition();
+            fetchMoonPhase();
+            displayConstellation();
+        })
+        .catch(error => {
+            console.error('Error fetching current location:', error);
+            document.getElementById('currentLocation').innerText = 'Error fetching current location';
+        });
+
+
+}
+
+getLocation();
 
 
 
@@ -152,47 +172,29 @@ const fetchBodyPosition = () => {
         venusMagnitude.textContent = 'Morning Star Magnitude: ' + vMagnitude ;
         venusDistance.textContent = 'Morning Star Distance: ' + vDistance;
 
-        positionList.appendChild(sunZodia);
-        positionList.appendChild(sunAzimuth);
-        positionList.appendChild(sunAltitude);
-        positionList.appendChild(sunDeclination);
-        positionList.appendChild(sunAscension);
-        positionList.appendChild(sunMagnitude);
-        positionList.appendChild(sunDistance);
-        positionList.appendChild(lunarZodia);
-        positionList.appendChild(lunarAzimuth);
-        positionList.appendChild(lunarAltitude);
-        positionList.appendChild(lunarDeclination);
-        positionList.appendChild(lunarAscension);
-        positionList.appendChild(lunarMagnitude);
-        positionList.appendChild(lunarDistance);
-        positionList.appendChild(venusZodia);
-        positionList.appendChild(venusAzimuth);
-        positionList.appendChild(venusAltitude);
-        positionList.appendChild(venusDeclination);
-        positionList.appendChild(venusAscension);
-        positionList.appendChild(venusMagnitude);
-        positionList.appendChild(venusDistance);
+        sunList.appendChild(sunZodia);
+        sunList.appendChild(sunAzimuth);
+        // sunList.appendChild(sunAltitude);
+        sunList.appendChild(sunDeclination);
+        sunList.appendChild(sunAscension);
+        sunList.appendChild(sunMagnitude);
+        // sunList.appendChild(sunDistance);
+        moonList.appendChild(lunarZodia);
+        moonList.appendChild(lunarAzimuth);
+        // moonList.appendChild(lunarAltitude);
+        moonList.appendChild(lunarDeclination);
+        moonList.appendChild(lunarAscension);
+        moonList.appendChild(lunarMagnitude);
+        // moonList.appendChild(lunarDistance);
+        venusList.appendChild(venusZodia);
+        venusList.appendChild(venusAzimuth);
+        // venusList.appendChild(venusAltitude);
+        venusList.appendChild(venusDeclination);
+        venusList.appendChild(venusAscension);
+        venusList.appendChild(venusMagnitude);
+        // venusList.appendChild(venusDistance);
 
         zodiaImg.src='./assets/images/'+sZodia+'.jpg'
-    })
-    .catch(error => {
-        console.error('Error fetching moon phase data:', error);
-        document.getElementById('moonPhase').innerHTML = '<p>Error fetching moon phase information.</p>';
-    });
-};
-
-const fetchMoonEvent = () => {
-    fetch(astroUrl+'/bodies/events/moon?latitude='+lat+'&longitude='+long+'&from_date='+today+'&to_date='+oneYear+'&time='+now+'&elevation=0', {
-        headers: {
-            'Authorization': 'Basic ' + authString
-        }  
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
     })
     .catch(error => {
         console.error('Error fetching moon phase data:', error);
@@ -228,7 +230,7 @@ const fetchMoonPhase = () => {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Basic ${authString}`,
-            // "Origin": "https://api.astronomyapi.com/api/v2/studio/moon-phase" // Set the Origin to the domain of the website
+            "Origin": "https://api.astronomyapi.com/api/v2/studio/moon-phase" // Set the Origin to the domain of the website
         },
         body: data
     })
@@ -267,45 +269,42 @@ const fetchCatFact = () => {
 
 fetchCatFact();
 
-
-
-fetchBodyPosition();
-fetchMoonEvent();
-fetchMoonPhase();
-    
-
-
-
 const constellations = [
     {
         name: "Andromeda, Triangulum",
         latRange: [-40, 90],
-        monthRange: [9, 10, 11, 12, 1, 2]
+        monthRange: [9, 10, 11, 12, 1, 2],
+        img: './assets/images/Andromeda.jpg'
     },
     {
         name: "Aquarius",
         latRange: [-90, 65],
-        monthRange: [9, 10, 11, 12, 1, 2]
+        monthRange: [9, 10, 11, 12, 1, 2],
+        img: './assets/images/Aquarius.jpg'
     },
     {
         name: "Aries",
         latRange: [-60, 90],
-        monthRange: [10, 11, 12, 1, 2, 3]
+        monthRange: [10, 11, 12, 1, 2, 3],
+        img: './assets/images/Aries.jpg'
     },
     {
         name: "Auriga",
         latRange: [-40, 90],
-        monthRange: [11, 12, 1, 2, 3]
+        monthRange: [11, 12, 1, 2, 3],
+        img: './assets/images/Auriga.jpg'
     },
     {
         name: "Bootes, Canes Venatici, Coma Berenices",
         latRange: [-50, 90],
-        monthRange: [3, 4, 5, 6, 7]
+        monthRange: [3, 4, 5, 6, 7],
+        img: './assets/images/Bootes.jpg'
     },
     {
         name: "Camelopardalis",
         latRange: [20, 90],
-        monthRange: [12, 1, 2, 3]
+        monthRange: [12, 1, 2, 3],
+        img: './assets/images/Camelopardalis.jpg'
     },
     {
         name: "Cancer",
@@ -315,127 +314,152 @@ const constellations = [
     {
         name: "Canis Major, Lepus, Columba Noachi, Caelum",
         latRange: [-90, 60],
-        monthRange: [12, 1, 2, 3]
+        monthRange: [12, 1, 2, 3],
+        img: './assets/images/Canis_Major.jpg'
     },
     {
         name: "Capricornus",
         latRange: [-90, 60],
-        monthRange: [8, 9, 10]
+        monthRange: [8, 9, 10],
+        img: './assets/images/Capricornus.jpg'
     },
     {
         name: "Cassiopeia",
         latRange: [-20, 90],
-        monthRange: [9, 10, 11, 12, 1, 2, 3, 4]
+        monthRange: [9, 10, 11, 12, 1, 2, 3, 4],
+        img: './assets/images/Cassiopeia.jpg'
     },
     {
         name: "Cepheus",
         latRange: [-10, 90],
-        monthRange: [10, 11, 12, 1, 2, 3]
+        monthRange: [10, 11, 12, 1, 2, 3],
+        img: './assets/images/Cepheus.jpg'
     },
     {
         name: "Cetus, Eridanus, Sculptor, Fornax",
         latRange: [-90, 70],
-        monthRange: [11, 12, 1, 2, 3]
+        monthRange: [11, 12, 1, 2, 3],
+        img: './assets/images/Cetus.jpg'
     },
     {
         name: "Delphinus, Sagitta, Aquila",
         latRange: [-70, 90],
-        monthRange: [8, 9, 10]
+        monthRange: [8, 9, 10],
+        img: './assets/images/Delphinus.jpg'
     },
     {
         name: "Draco",
         latRange: [-15, 90],
-        monthRange: [4, 5, 6, 7, 8, 9]
+        monthRange: [4, 5, 6, 7, 8, 9],
+        img: './assets/images/Draco.jpg'
     },
     {
         name: "Gemini",
         latRange: [-60, 90],
-        monthRange: [12, 1, 2, 3, 4]
+        monthRange: [12, 1, 2, 3, 4],
+        img: './assets/images/Gemini.jpg'
     },
     {
         name: "Hercules, Corona Borealis",
         latRange: [-50, 90],
-        monthRange: [4, 5, 6, 7, 8, 9]
+        monthRange: [4, 5, 6, 7, 8, 9],
+        img: './assets/images/Hercules.jpg'
     },
     {
         name: "Hydra, Corvus, Crater, Sextans, Lupus, Centaurus, Antlia, Pyxis",
         latRange: [-83, 54],
-        monthRange: [3, 4, 5]
+        monthRange: [3, 4, 5],
+        img: './assets/images/Hydra.jpg'
     },
     {
         name: "Lacerta, Cygnus, Lyra, Vulpecula",
         latRange: [40, 90],
-        monthRange: [9, 10, 11, 12, 1, 2]
+        monthRange: [9, 10, 11, 12, 1, 2],
+        img: './assets/images/Lacerta.jpg'
     },
     {
         name: "Leo Major, Leo Minor",
         latRange: [-65, 90],
-        monthRange: [3, 4, 5, 6]
+        monthRange: [3, 4, 5, 6],
+        img: './assets/images/Leo.jpg'
     },
     {
         name: "Libra",
         latRange: [-90, 65],
-        monthRange: [4, 5, 6, 7, 8]
+        monthRange: [4, 5, 6, 7, 8],
+        img: './assets/images/Libra.jpg'
     },
     {
         name: "Lynx, Telescopium",
         latRange: [40, 90],
-        monthRange: [12, 1, 2, 3]
+        monthRange: [12, 1, 2, 3],
+        img: './assets/images/Lynx.jpg'
     },
     {
         name: "Monoceros, Canis Minor",
         latRange: [-90, 75],
-        monthRange: [12, 1, 2, 3]
+        monthRange: [12, 1, 2, 3],
+        img: './assets/images/Monocerosjpg'
     },
     {
         name: "Ophiuchus, Serpens, Scutum",
         latRange: [-80, 80],
-        monthRange: [7, 8, 9]
+        monthRange: [7, 8, 9],
+        img: './assets/images/Ophiuchus.jpg'
     },
     {
         name: "Orion",
         latRange: [-75, 85],
-        monthRange: [12, 1, 2, 3]
+        monthRange: [12, 1, 2, 3],
+        img: './assets/images/Orion.jpg'
     },
     {
         name: "Pegasus, Equuleus",
         latRange: [-60, 90],
-        monthRange: [9, 10, 11, 12, 1, 2, 3]
+        monthRange: [9, 10, 11, 12, 1, 2, 3],
+        img: './assets/images/Pegasus.jpg'
     },
     {
         name: "Perseus",
         latRange: [-35, 90],
-        monthRange: [9, 10, 11, 12, 1, 2, 3]
+        monthRange: [9, 10, 11, 12, 1, 2, 3],
+        img: './assets/images/Perseus.jpg'
     },
     {
         name: "Pisces",
         latRange: [-65, 90],
-        monthRange: [10, 11, 12, 1, 2, 3]
+        monthRange: [10, 11, 12, 1, 2, 3],
+        img: './assets/images/Pisces.jpg'
     },
     {
         name: "Sagittarius, Corona Australis",
         latRange: [-90, 60],
-        monthRange: [6, 7, 8]
+        monthRange: [6, 7, 8],
+        img: './assets/images/Sagittarius.jpg'
     },
     {
         name: "Scorpius",
         latRange: [-90, 40],
-        monthRange: [4, 5, 6, 7]
+        monthRange: [4, 5, 6, 7],
+        img: './assets/images/Scorpius.jpg'
     },
     {
         name: "Taurus",
         latRange: [-65, 90],
-        monthRange: [12, 1, 2, 3]
+        monthRange: [12, 1, 2, 3],
+        img: './assets/images/Taurus.jpg'
     },
     {
         name: "Ursa Minor",
         latRange: [10, 90],
-        monthRange: [3, 4, 5, 6, 7, 8, 9, 10]
+        monthRange: [3, 4, 5, 6, 7, 8, 9, 10],
+        img: './assets/images/Ursa_Minor.jpg'
     },
     {
         name: "Ursa Major",
         latRange: [-30, 90],
-        monthRange: [3, 4, 5, 6, 7, 8, 9, 10]
+        monthRange: [3, 4, 5, 6, 7, 8, 9, 10],
+        img: './assets/images/Ursa_Major.jpg'
     }
 ];
 
@@ -454,7 +478,7 @@ function displayConstellation() {
     }
     const constellationElement = document.getElementById("constellation");
     if (visibleConstellations.length > 0) {
-        constellationElement.textContent = visibleConstellations.join(", ");
+        constellationElement.textContent = visibleConstellations.join(", ");        
     } else {
         constellationElement.textContent = "No visible constellations for the given latitude and month.";
     }

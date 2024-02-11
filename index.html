@@ -33,102 +33,97 @@
     </style>
 </head>
 
-<body class="bg-gray-800"> <!-- Changed background color to dark gray using Tailwind CSS -->
-
-    <!-- Example Tailwind CSS classes applied to body -->
-    <div class="flex justify-evenly items-center">
-        <!-- Left side: Window -->
-        <div class="room-wrapper">
-            <div class="room">
-                <div class="window">
-                    <div class="stars"></div>
-                    <div class="star"></div>
-                    <div id="moon" class="moon"></div>
-                    <div class="cloud"></div>
-                    <div class="eiffel-tower">
-                        <div class="platform"></div>
-                    </div>
-                    <div class="roof"></div>
-                    <div class="bush"></div>
-                </div>
-                <div class="window-sill">
-                    <div class="cat">
-                        <div class="head">
-                            <div class="eyes"></div>
-                        </div>
-                        <div class="tail"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Header -->
-        <div class="text-center mb-8 bat-font mt-20">
-            <h1 class="text-5xl font-bold text-white pt-25">Tonight's Spell Cast</h1>
+<body class="bg-black"> <!-- Changed background color to dark gray using Tailwind CSS -->
+        
+    <header class="text-center mb-8 bat-font mt-5 ml-10">
+        <div class="float-left">
             <p class="text-2xl text-white">Witchy Weather App</p>
+            <h1 class="text-5xl font-bold text-white inline">Tonight's Spell Cast</h1>
         </div>
+            
+                <!-- Top Navigation -->
+        <div class="topnav mb-8 flex justify-around pt-5">
+            <span id="currentLocation" class="text-lg text-white"></span> <!-- Display current location here -->
+            <span class="text-lg mx-8 text-white"> </span> <!-- Add space -->
+            <span class="text-lg mx-2 text-white"> </span> <!-- Add space -->
+            <span id="currentDate" class="text-lg text-white"> </span> <!-- Display current date here -->
+            <span class="text-lg mx-4 text-white"> </span> <!-- Add space -->
+            <span id="currentTime" class="text-lg text-white"> </span> <!-- Display current time here -->
+        </div>
+           
+    </header>
 
-        <!-- Right side: Moon Phase -->
-        <div class="flex items-center">
-            <div class="card mb-8 mt-50 mr-10">
-                <div id="moonPhase"></div> <!-- Display moon phase information here -->
+    <main class="columns-3">
+        <!-- Example Tailwind CSS classes applied to body -->
+        <section id="column-left" class="float-left flex flex-col items-center justify-center content-center">
+
+            <div id="spellcast" class="mt-10">
+                <p class="text-3xl">Spellcast goes here</p>
             </div>
-        </div>
-      <!-- Main Content -->
-    <div class="grid grid-cols-2 gap-8">
 
-        <!-- Left Column -->
-        <div class="leftcolumn">
+            <div id="zodiac" class="m-10 self-center">
+                <img>
+            </div>
 
-            <!-- Astronomy Events -->
-            <div class="card">
-                <h2 class="text-2xl font-semibold text-white">Show Current Astronomy Events</h2>
-                <!-- Astronomy Events API -->
-                <div id="positionLabels">
-
+            <div class="self-center mx-10">
+                <!-- Constellation -->
+                <div class="card self-center">
+                    <h2 class="text-2xl font-semibold text-white">Constellations Above You</h2>
+                    <div id="constellation"></div>
+                    <!-- List Names of Constellations Above You -->
+                    <!-- No Images Needed, Don't Want To Overpack The Page -->
                 </div>
-                <p class="text-base text-white">Info about astronomy event</p>
             </div>
 
-        </div>
+            <!-- <div id="secondaryImg">
+                <img src="./assets/images/Andromeda.jpg" id="img2">
+                <img id="img3">
+            </div> -->
+        </section>
 
-        <!-- Right Column -->
-        <div class="rightcolumn flex justify-center items-center">
-
-            <!-- Constellation -->
-            <div class="card">
-                <h2 class="text-2xl font-semibold text-white">Show Current Constellation Above You</h2>
-                <div id="constellation"></div>
-                <!-- List Names of Constellations Above You -->
-                <!-- No Images Needed, Don't Want To Overpack The Page -->
+        <section id="column-middle">
+                        <div class="room-wrapper">
+                <div class="room">
+                    <div class="window">
+                        <div class="stars"></div>
+                        <div class="star"></div>
+                        <div id="moon" class="moon"></div>
+                        <div class="cloud"></div>
+                        <div class="eiffel-tower">
+                            <div class="platform"></div>
+                        </div>
+                        <div class="roof"></div>
+                        <div class="bush"></div>
+                    </div>
+                    <div class="window-sill">
+                        <div class="cat">
+                            <div class="head">
+                                <div class="eyes"></div>
+                            </div>
+                            <div class="tail"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <section id="column-right" class="flex flex-col float-right justify-between items-center">
+                <div class="card my-10">
+                    <div id="moonPhase"></div> <!-- Display moon phase information here -->
+                </div>
 
-    </div>
-    <!-- Google Maps API -->
-    <div id="map"></div>
-    </div>
+                <div class="card m-10">
+                    <h2 class="text-2xl font-semibold text-white">Current Body Positions</h2>
+                    <!-- Astronomy Events API -->
+                    <div id="positionLabels" class="text-sm">
+                        <div id="sunPosition" class="basis-1/3 p-1"></div>
+                        <div id="moonPosition" class="basis-1/3 p-1"></div>
+                        <div id="venusPosition" class="basis-1/3 p-1"></div>
+                    </div>
+                </div>
+        </section>
 
-
-
-
-    <!-- Top Navigation -->
-    <div class="topnav mb-8 flex justify-around">
-        <span id="currentLocation" class="text-lg text-white"></span> <!-- Display current location here -->
-        <span class="text-lg mx-8 text-white"> </span> <!-- Add space -->
-        <span class="text-lg mx-2 text-white"> </span> <!-- Add space -->
-        <span id="currentDate" class="text-lg text-white"> </span> <!-- Display current date here -->
-        <span class="text-lg mx-4 text-white"> </span> <!-- Add space -->
-        <span id="currentTime" class="text-lg text-white"> </span> <!-- Display current time here -->
-    </div>
-
-    <!-- Google Maps API -->
-    <div id="map"></div>
-
-
-    <div id="zodiac">
-        <img>
-    </div>
+    </main>
 
 
 
@@ -137,11 +132,6 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script> <!-- Include your JavaScript file -->
-    <script>
-        // JavaScript code...
-
-        // Your existing JavaScript code
-    </script>
 </body>
 
 </html>

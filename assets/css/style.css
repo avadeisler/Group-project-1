@@ -671,3 +671,33 @@
       position: static;
     }
 }
+
+
+
+#zodiaImg {
+  width: 100%;
+}
+
+p {
+  color: white;
+}
+
+#constellation {
+  color: white;
+}
+
+#column-left {
+  width: 30%;
+}
+
+#column-right {
+  width: 30%;
+}
+
+#img2 {
+  width: 40%;
+}
+
+#img3 {
+  width: 40%;
+}
