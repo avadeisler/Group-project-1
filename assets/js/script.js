@@ -39,6 +39,8 @@ let venusList = document.getElementById('venusPosition');
 let zodiaImg = document.getElementById('zodiac').firstElementChild;
 let constellation1 = document.getElementById('img2');
 let constellation2 = document.getElementById('img3');
+let cat = document.querySelector('.cat');
+let room = document.querySelector('.room');
 
 zodiaImg.id = 'zodiaImg'
 
@@ -64,10 +66,17 @@ let venusAscension = document.createElement('p');
 let venusMagnitude = document.createElement('p');
 let venusDistance= document.createElement('p');
 
+let speechBubble = document.createElement('p');
+
+speechBubble.textContent = catFact;
+speechBubble.id = 'speechBubble';
+
 
 console.log(today);
 console.log(oneYear);
 console.log(now);
+
+console.log(cat);
 
 let corsKey ='temp_3b96f43bf425f922c76ba59cea93db0a';
 
@@ -76,6 +85,12 @@ document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY
 
 // Display current time after "Current Time" text
 document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
+
+cat.addEventListener('click', function(event) {
+    console.log(catFact);
+    cat.appendChild(speechBubble)
+    speechBubble.textContent=catFact;
+} )
 
 // Get current location
 
