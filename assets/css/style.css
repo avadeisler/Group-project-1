@@ -32,6 +32,10 @@ body {
   position: auto;
 }
 
+.room {
+  top: 100px;
+}
+
 
  
   .room:after {
@@ -816,7 +820,11 @@ header {
 
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
+  body {
+    overflow-x: hidden;
+  }
+
   main {
     column-count: 1;
   }
@@ -850,14 +858,14 @@ header {
   }
 
   #moonPhaseBlock {
-    display: block;
+    display: inline;
   }
 
   #positionsBlock {
-    display: block;
+    display: inline;
   }
 
   #moonPhase {
-    display: block;
+    margin: 25% 0%;
   }
 }
