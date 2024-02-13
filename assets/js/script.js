@@ -239,27 +239,35 @@ function fetchCityDisplay(lat, long) {
     fetch(`https://api.opencagedata.com/geocode/v1/json?key=485c006cfea143c7887d7603c2b936da&q=` + lat + ',' + long)
         .then(response => response.json())
         .then(data => {
-            const city = data.results[0].components.city;
-            const country = data.results[0].components.country;
-            const utcOffset = data.results[0].annotations.timezone.offset_sec;
+            if (data.results && data.results.length > 0 && data.results[0].components.city) {
+                const city = data.results[0].components.city;
+                const country = data.results[0].components.country;
+                const utcOffset = data.results[0].annotations.timezone.offset_sec;
 
-            // Get the current time in UTC
-            let now = new Date();
-            let utcNow = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+                // Get the current time in UTC
+                let now = new Date();
+                let utcNow = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
 
-            // Add the UTC offset (converted to milliseconds)
-            let localTime = new Date(utcNow.getTime() + utcOffset * 1000);
+                // Add the UTC offset (converted to milliseconds)
+                let localTime = new Date(utcNow.getTime() + utcOffset * 1000);
 
-            // Convert the local time to a string and remove the timezone information
-            let localTimeString = localTime.toLocaleTimeString().split(' ')[0];
+                // Convert the local time to a string and remove the timezone information
+                let localTimeString = localTime.toLocaleTimeString().split(' ')[0];
 
-            // Convert the local date to a string
-            let localDateString = localTime.toLocaleDateString();
+                // Convert the local date to a string
+                let localDateString = localTime.toLocaleDateString();
 
-            document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
-            document.getElementById('currentDate').innerText = localDateString;
-            document.getElementById('currentTime').innerText = localTimeString;
+                document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+                document.getElementById('currentDate').innerText = localDateString;
+                document.getElementById('currentTime').innerText = localTimeString;
+            } else {
+                document.getElementById('currentLocation').innerText = 'City not found, select another city';
+            }
         })
+        .catch(error => {
+            console.error('Error fetching city data:', error);
+            document.getElementById('currentLocation').innerText = 'Error fetching city data';
+        });
 }
 
 

@@ -740,7 +740,7 @@ header {
   position: relative;
   background-color: #a679b0;
   font-family: megrim;
-  color: rgb(73, 4, 73);
+  color: rgb(51, 2, 51);
   /* border: 2px solid #000; */
   border-radius: 30px;
   padding: 10px;
@@ -765,31 +765,34 @@ header {
 
 /* Change the background color and border of the datepicker */
 .ui-datepicker {
-  background: #333;
+  background: #322751;
   border: 1px solid #555;
+  font-family: megrim;
+  font-weight: bold;
+  color:#3a2e5d
 }
 
 /* Change the color of the date text */
 .ui-datepicker .ui-state-default {
-  color: #ccc;
+  color: #322751;
 }
 
 /* Change the color of the selected date */
 .ui-datepicker .ui-state-active {
-  color: #fff;
-  background: #f00;
+  color: #322751;
+  background: #322751;
 }
 
 /* Change the color of the current day */
 .ui-datepicker .ui-state-highlight {
-  color: #fff;
-  background: #00f;
+  color: #1f042e;
+  background: #f1c87b;
 }
 
 /* Change the color of the hovered date */
 .ui-datepicker .ui-state-hover {
-  color: #fff;
-  background: #f90;
+  color: #dbd2e0;
+  background: #3a2e5d;
 }
 
 #currentLocation {
