@@ -447,13 +447,14 @@ const fetchCatFact = () => {
     })
     .then(data => {
         console.log(data);
-        catFact = data[Math.floor(Math.random()*5)].text;
+        catFact = data[Math.floor(Math.random()*5)].text; // Insert the random selection here
         console.log(catFact);
     })
     .catch(error => {
         console.error('Error fetching cat data:', error);
     })
 }
+
 
 fetchCatFact();
 
