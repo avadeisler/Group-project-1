@@ -686,12 +686,25 @@ p {
   color: white;
 }
 
+header {
+  position: relative;
+  z-index: 1100;
+}
+
 #column-left {
+  position: relative;
   width: 30%;
+  z-index: 1000;
+}
+
+#column-middle {
+  z-index: -1000;
 }
 
 #column-right {
+  position: relative;
   width: 30%;
+  z-index: 1000;
 }
 
 #img2 {
@@ -725,4 +738,59 @@ p {
   border-top: 50px;
   border-style: solid;
   border-color: #ffffff transparent transparent  transparent;
+}
+
+
+/* Change the background color and border of the datepicker */
+.ui-datepicker {
+  background: #333;
+  border: 1px solid #555;
+}
+
+/* Change the color of the date text */
+.ui-datepicker .ui-state-default {
+  color: #ccc;
+}
+
+/* Change the color of the selected date */
+.ui-datepicker .ui-state-active {
+  color: #fff;
+  background: #f00;
+}
+
+/* Change the color of the current day */
+.ui-datepicker .ui-state-highlight {
+  color: #fff;
+  background: #00f;
+}
+
+/* Change the color of the hovered date */
+.ui-datepicker .ui-state-hover {
+  color: #fff;
+  background: #f90;
+}
+
+#currentLocation {
+  position: relative;
+}
+
+#searchBar {
+  color: black;
+  width: 250px;
+}
+
+#recentSearches {
+  position: relative;
+  left: 15px;
+
+  & li {
+    color: black;
+    background-color: white;
+    list-style-type: none;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin: 1px 0px;
+    width: 250px;
+  }
+
 }

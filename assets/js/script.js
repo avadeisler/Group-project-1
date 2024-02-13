@@ -37,10 +37,13 @@ let sunList = document.getElementById('sunPosition');
 let moonList = document.getElementById('moonPosition');
 let venusList = document.getElementById('venusPosition');
 let zodiaImg = document.getElementById('zodiac').firstElementChild;
+let constellation = document.getElementById('constellation');
 let constellation1 = document.getElementById('img2');
 let constellation2 = document.getElementById('img3');
 let cat = document.querySelector('.cat');
 let room = document.querySelector('.room');
+let dateDisplay = document.getElementById('currentDate');
+let locationDisplay = document.getElementById('currentLocation');
 
 zodiaImg.id = 'zodiaImg'
 
@@ -71,6 +74,11 @@ let speechBubble = document.createElement('p');
 speechBubble.textContent = catFact;
 speechBubble.id = 'speechBubble';
 
+let datePicker = document.createElement('div');
+
+datePicker.id = 'datepicker'
+
+
 
 console.log(today);
 console.log(oneYear);
@@ -86,13 +94,178 @@ document.getElementById('currentDate').innerText = dayjs().format('dddd MM-DD-YY
 // Display current time after "Current Time" text
 document.getElementById('currentTime').innerText = dayjs().format('hh:mm:ss A');
 
+dateDisplay.addEventListener('click', function() {
+    console.log('date display')
+    datePicker.style.position = 'absolute';
+    dateDisplay.appendChild(datePicker)
+    $( "#datepicker" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText) {
+            today = dateText; // update the 'today' variable with the selected date
+            document.getElementById('currentDate').innerText = dayjs(dateText).format('dddd MM-DD-YY');
+            fetchBodyPosition();
+            fetchMoonPhase();
+            displayConstellation();
+        }
+    });
+})
+
+
+
 cat.addEventListener('click', function(event) {
     console.log(catFact);
     cat.appendChild(speechBubble)
     speechBubble.textContent=catFact;
 } )
 
-// Get current location
+// function displaySearchBar() {
+//     // Check if the search bar already exists
+//     if (document.getElementById('searchBar')) {
+//         return;
+//     }
+
+//     let searchBar = document.createElement('input');
+//     searchBar.id = 'searchBar';
+//     searchBar.type = 'text';
+//     searchBar.placeholder = 'Enter City or Zip Code';
+
+//     let newLine = document.createElement('div');
+//     newLine.appendChild(searchBar);
+
+//     locationDisplay.appendChild(newLine);
+
+//     displayRecentSearches();
+
+//     searchBar.addEventListener('keydown', function(event) {
+//         if (event.key === 'Enter') {
+//             let searchValue = searchBar.value;
+//             console.log(searchValue);
+
+//             // Retrieve the current list of recent searches from local storage
+//             let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+
+//             // Add the new search to the list
+//             recentSearches.push(searchValue);
+
+//             // Save the updated list back to local storage
+//             localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+//         }
+//     });
+// }
+
+
+// function displayRecentSearches() {
+//     // Retrieve and parse the recent searches from local storage
+//     let recentSearches = JSON.parse(localStorage.getItem('recentSearches'));
+
+//     // Create a new ul element
+//     let ul = document.createElement('ul');
+
+//     ul.id = 'recentSearches';
+
+//     // Iterate over the recent searches
+//     for (let i = 0; i < recentSearches.length; i++) {
+//         // Create a new li element for each search
+//         let li = document.createElement('li');
+//         li.textContent = recentSearches[i];
+
+//         // Append the li to the ul
+//         ul.appendChild(li);
+//     }
+
+//     // Append the ul to the desired location in the document
+//     locationDisplay.appendChild(ul);
+// }
+
+function displaySearchBar() {
+    // Check if the search bar already exists
+    if (document.getElementById('searchBar')) {
+        return;
+    }
+
+    let searchBar = document.createElement('input');
+    searchBar.id = 'searchBar';
+    searchBar.type = 'text';
+    searchBar.placeholder = 'Enter City or Zip Code';
+
+    let newLine = document.createElement('div');
+    newLine.appendChild(searchBar);
+
+    locationDisplay.appendChild(newLine);
+
+    // Retrieve the current list of recent searches from local storage
+    let recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+
+    // Initialize the autocomplete with the recent searches
+    $("#searchBar").autocomplete({ source: recentSearches });
+
+    searchBar.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            let searchValue = searchBar.value;
+            console.log(searchValue);
+    
+            // Use a geocoding API to get the coordinates of the city
+            fetch(`https://api.opencagedata.com/geocode/v1/json?q=${searchValue}&key=485c006cfea143c7887d7603c2b936da`)
+                .then(response => response.json())
+                .then(data => {
+                    // Get the first result
+                    let result = data.results[0];
+    
+                    // Get the latitude and longitude
+                    lat = result.geometry.lat;
+                    long = result.geometry.lng;
+    
+                 // Add the new search to the list if it's not already there
+                 if (!recentSearches.includes(searchValue)) {
+                    recentSearches.push(searchValue);
+
+                    // Save the updated list back to local storage
+                    localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+
+                    // Reinitialize the autocomplete with the updated recent searches
+                    $("#searchBar").autocomplete({ source: recentSearches });
+                }
+
+                    fetchCityDisplay(lat, long);
+                    fetchBodyPosition();
+                    fetchMoonPhase();
+                    displayConstellation(lat, month);
+                });
+        }
+    });
+}
+
+function fetchCityDisplay(lat, long) {
+    fetch(`https://api.opencagedata.com/geocode/v1/json?key=485c006cfea143c7887d7603c2b936da&q=` + lat + ',' + long)
+        .then(response => response.json())
+        .then(data => {
+            const city = data.results[0].components.city;
+            const country = data.results[0].components.country;
+            const utcOffset = data.results[0].annotations.timezone.offset_sec;
+
+            // Get the current time in UTC
+            let now = new Date();
+            let utcNow = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+
+            // Add the UTC offset (converted to milliseconds)
+            let localTime = new Date(utcNow.getTime() + utcOffset * 1000);
+
+            // Convert the local time to a string and remove the timezone information
+            let localTimeString = localTime.toLocaleTimeString().split(' ')[0];
+
+            // Convert the local date to a string
+            let localDateString = localTime.toLocaleDateString();
+
+            document.getElementById('currentLocation').innerText = `City: ${city}, Country: ${country}`;
+            document.getElementById('currentDate').innerText = localDateString;
+            document.getElementById('currentTime').innerText = localTimeString;
+        })
+}
+
+
+locationDisplay.addEventListener('click', displaySearchBar);
+
+// Get current location using ipapi.co
 
 function getLocation() {
     fetch('https://ipapi.co/json/')
@@ -110,7 +283,7 @@ function getLocation() {
             
             fetchBodyPosition();
             fetchMoonPhase();
-            displayConstellation();
+            displayConstellation(lat, month);
         })
         .catch(error => {
             console.error('Error fetching current location:', error);
@@ -317,14 +490,14 @@ const constellations = [
     },
     {
         name: "Camelopardalis",
-        latRange: [20, 90],
+        latRange: [-10, 90],
         monthRange: [12, 1, 2, 3],
         img: './assets/images/Camelopardalis.jpg'
     },
     {
         name: "Cancer",
         latRange: [-60, 90],
-        monthRange: [3, 4, 5, 6]
+        monthRange: [2, 3, 4, 5, 6]
     },
     {
         name: "Canis Major, Lepus, Columba Noachi, Caelum",
@@ -335,7 +508,7 @@ const constellations = [
     {
         name: "Capricornus",
         latRange: [-90, 60],
-        monthRange: [8, 9, 10],
+        monthRange: [8, 9, 10, 11],
         img: './assets/images/Capricornus.jpg'
     },
     {
@@ -388,13 +561,13 @@ const constellations = [
     },
     {
         name: "Lacerta, Cygnus, Lyra, Vulpecula",
-        latRange: [40, 90],
+        latRange: [-40, 90],
         monthRange: [9, 10, 11, 12, 1, 2],
         img: './assets/images/Lacerta.jpg'
     },
     {
         name: "Leo Major, Leo Minor",
-        latRange: [-65, 90],
+        latRange: [-45, 90],
         monthRange: [3, 4, 5, 6],
         img: './assets/images/Leo.jpg'
     },
@@ -406,8 +579,8 @@ const constellations = [
     },
     {
         name: "Lynx, Telescopium",
-        latRange: [40, 90],
-        monthRange: [12, 1, 2, 3],
+        latRange: [-55, 90],
+        monthRange: [12, 1, 2, 3, 4],
         img: './assets/images/Lynx.jpg'
     },
     {
@@ -448,7 +621,7 @@ const constellations = [
     },
     {
         name: "Sagittarius, Corona Australis",
-        latRange: [-90, 60],
+        latRange: [-90, 55],
         monthRange: [6, 7, 8],
         img: './assets/images/Sagittarius.jpg'
     },
@@ -466,7 +639,7 @@ const constellations = [
     },
     {
         name: "Ursa Minor",
-        latRange: [10, 90],
+        latRange: [-10, 90],
         monthRange: [3, 4, 5, 6, 7, 8, 9, 10],
         img: './assets/images/Ursa_Minor.jpg'
     },
@@ -480,25 +653,20 @@ const constellations = [
 
 console.log(constellations);
 
-function displayConstellation() {
+function displayConstellation(lat, month) {
 
     let visibleConstellations = [];
 
     for (i=0; i<constellations.length; i++) {
-
+    
         if (lat >= constellations[i].latRange[0] && lat <= constellations[i].latRange[1] &&
             constellations[i].monthRange.includes(month)) {
             visibleConstellations.push(constellations[i].name);
+            constellation.textContent = visibleConstellations.join(', ');
         }
     }
-    const constellationElement = document.getElementById("constellation");
-    if (visibleConstellations.length > 0) {
-        constellationElement.textContent = visibleConstellations.join(", ");        
-    } else {
-        constellationElement.textContent = "No visible constellations for the given latitude and month.";
-    }
 
-    console.log(constellations[1])
+    console.log(visibleConstellations)
 }
 
 
