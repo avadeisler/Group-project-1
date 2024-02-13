@@ -110,7 +110,18 @@ dateDisplay.addEventListener('click', function() {
     });
 })
 
+var spell = document.getElementById('spell')
 
+var spellArray = [
+
+    'Healing Spell: By Earth and Air, by fire and water, so shall you hear my call. Powers of birth and rebirth, powers of silence and peace, heal my body and mind.',
+    'Truth Spell: To see the truth, to know the way, i cast a spell in every way. By the power of three I conjure thee to give thy truth unto me.',
+    'Spell to see the unseen: In this tween hour we call upon this sacred power, three together stand alone command the unseen to be shown in innocence we search the skies enchanted are our newfound eyes.',
+    'Protection Spell: The shield of protection I carry strong. No ill wishes or trouble shall come along. None can harm me or weaken my soul, my light is my weapon and peace is my goal.'
+];
+
+var randomItem = spellArray[Math.floor(Math.random() * spellArray.length)]; 
+spell.innerHTML = randomItem;
 
 cat.addEventListener('click', function(event) {
     console.log(catFact);
