@@ -851,7 +851,7 @@ header {
     position: absolute;
     width: 100%;
     height: 50%;
-    bottom: -800px;
+    bottom: -900px;
     /* display: none; */
   }
 
@@ -912,7 +912,7 @@ header {
     position: absolute;
     width: 100%;
     height: 50%;
-    bottom: -1050px;
+    bottom: -1200px;
     /* display: none; */
   }
 
