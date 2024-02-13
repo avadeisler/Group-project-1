@@ -38,14 +38,14 @@
 
 <body class="bg-black"> <!-- Changed background color to dark gray using Tailwind CSS -->
         
-    <header class="text-center mb-4 bat-font mt-5">
-        <div class="float-lef break-after-auto">
+    <header class="text-center mb-4 bat-font mt-5 ml-10">
+        <div class="float-left">
             <p class="text-2xl text-white">Witchy Weather App</p>
             <h1 class="text-5xl font-bold text-white inline">Tonight's Spell Cast</h1>
         </div>
             
                 <!-- Top Navigation -->
-        <div class="topnav flex m-1 justify-around">
+        <div class="topnav flex m-1 justify-around" id="nav">
             <span id="currentLocation" class="text-lg text-white p-5"></span> <!-- Display current location here -->
             <span id="currentDate" class="text-lg text-white p-5"> </span> <!-- Display current date here -->
             <span id="currentTime" class="text-lg text-white p-5"> </span> <!-- Display current time here -->
@@ -55,7 +55,7 @@
 
     <main class="columns-3 bat-font">
         <!-- Example Tailwind CSS classes applied to body -->
-        <section id="column-left" class="float-left flex flex-col items-center justify-center content-center">
+        <section id="column-left" class="float-left flex flex-col items-center justify-center content-cente mt-10">
 
             <div id="spellcast">
                 <p class="text-3xl">Spellcast goes here</p>
