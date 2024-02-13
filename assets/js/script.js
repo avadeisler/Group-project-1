@@ -447,7 +447,7 @@ const fetchCatFact = () => {
     })
     .then(data => {
         console.log(data);
-        catFact = data[0].text;
+        catFact = data[Math.floor(Math.random()*5)].text;
         console.log(catFact);
     })
     .catch(error => {

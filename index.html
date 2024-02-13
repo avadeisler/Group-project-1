@@ -37,25 +37,22 @@
 
 <body class="bg-black"> <!-- Changed background color to dark gray using Tailwind CSS -->
         
-    <header class="text-center mb-8 bat-font mt-5 ml-10">
-        <div class="float-left">
+    <header class="text-center mb-8 bat-font mt-5">
+        <div class="float-lef break-after-auto">
             <p class="text-2xl text-white">Witchy Weather App</p>
             <h1 class="text-5xl font-bold text-white inline">Tonight's Spell Cast</h1>
         </div>
             
                 <!-- Top Navigation -->
-        <div class="topnav mb-8 flex justify-around pt-5">
-            <span id="currentLocation" class="text-lg text-white"></span> <!-- Display current location here -->
-            <span class="text-lg mx-8 text-white"> </span> <!-- Add space -->
-            <span class="text-lg mx-2 text-white"> </span> <!-- Add space -->
-            <span id="currentDate" class="text-lg text-white"> </span> <!-- Display current date here -->
-            <span class="text-lg mx-4 text-white"> </span> <!-- Add space -->
-            <span id="currentTime" class="text-lg text-white"> </span> <!-- Display current time here -->
+        <div class="topnav mb-8 flex justify-around">
+            <span id="currentLocation" class="text-lg text-white p-10"></span> <!-- Display current location here -->
+            <span id="currentDate" class="text-lg text-white p-10"> </span> <!-- Display current date here -->
+            <span id="currentTime" class="text-lg text-white p-10"> </span> <!-- Display current time here -->
         </div>
            
     </header>
 
-    <main class="columns-3">
+    <main class="columns-1">
         <!-- Example Tailwind CSS classes applied to body -->
         <section id="column-left" class="float-left flex flex-col items-center justify-center content-center">
 
@@ -84,7 +81,7 @@
         </section>
 
         <section id="column-middle">
-                        <div class="room-wrapper">
+            <div class="room-wrapper">
                 <div class="room">
                     <div class="window">
                         <div class="stars"></div>
@@ -110,11 +107,11 @@
         </section>
 
         <section id="column-right" class="flex flex-col float-right justify-between items-center">
-                <div class="card my-10">
+                <div class="card my-10" id="moonPhaseBlock">
                     <div id="moonPhase"></div> <!-- Display moon phase information here -->
                 </div>
 
-                <div class="card m-10">
+                <div class="card m-10" id="positionsBlock">
                     <h2 class="text-2xl font-semibold text-white">Current Body Positions</h2>
                     <!-- Astronomy Events API -->
                     <div id="positionLabels" class="text-sm">
