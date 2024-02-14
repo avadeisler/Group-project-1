@@ -1,4 +1,4 @@
-WITCHY WEATHER: TODAY'S SPELLCAST
+## WITCHY WEATHER: TODAY'S SPELLCAST
 
 This is the first group project that we have been assigned in our Full stack coding bootcamp.
 We were tasked with creating a functional and creative app using the skills we have gained this far. 
@@ -13,6 +13,9 @@ Use a CSS framework other than Bootstrap. - We decided to use Tailwind.
 
 Be deployed to GitHub Pages.
 
+## Installation
+https://avadeisler.github.io/Witchy_Weather/
+
 Be interactive (i.e., accept and respond to user input). - click the kitty!
 Also, it will track your location in order to tell you your constellations.
 Also, you can change the date and location.
@@ -25,5 +28,14 @@ Use client-side storage to store persistent data. Clients can change the locatio
 
 Be responsive. - Our witch cat button, our location which shows your current moon cast and constellations.
 
+## Usage
+![image](https://github.com/avadeisler/Witchy_Weather/assets/7796766/642c948d-c3c7-4064-a450-f85fb9c5c9d0)
 
+
+## Credits
+https://schipthatcode.hashnode.dev/moon-magic-api
+https://www.meteomatics.com/api/getting-started/
+https://tailwindcss.com/
+https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/
+Thank you Paulina Hetman for giving us the free animated background
 
