@@ -34,16 +34,28 @@ Be responsive. - Our witch cat button, our location which shows your current moo
 
 ## Credits
 **https://schipthatcode.hashnode.dev/moon-magic-api**
+
 **https://tailwindcss.com/**
+
 **https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/**
+
 **https://en.wikipedia.org/wiki/Urania%27s_Mirror#**
+
 **https://cat-fact.herokuapp.com/facts**
+
 **https://api.astronomyapi.com/api/v2/studio/moon-phase**
+
 **https://api.astronomyapi.com/api/v2**
+
 **https://ipapi.co/json/**
+
 **https://api.opencagedata.com/geocode/v1/json**
+
 **https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js**
+
 **https://code.jquery.com/jquery-3.4.1.min.js**
+
 **//code.jquery.com/ui/1.12.1/jquery-ui.js**
+
 **Thank you Paulina Hetman for giving us the free animated background**
 
